@@ -2122,12 +2122,16 @@
     const delivery = getDeliveryCents();
     const totalCents = sub + vat + delivery;
 
+    const overlay = document.getElementById('checkoutOverlay');
+    overlay.style.zIndex = '1';
+
     yoco.showPopup({
       amountInCents: totalCents,
       currency: 'ZAR',
       name: 'NEXGEN Industry',
       description: `Order — ${cart.map(i => i.name).join(', ')}`,
       callback: async function(result) {
+        overlay.style.zIndex = '';
         if (result.error) {
           showError('Payment failed: ' + result.error.message);
           return;
