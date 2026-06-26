@@ -1229,7 +1229,7 @@
         </div>
         <div class="product-price">R5,250</div>
         <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
-        <button onclick="addToCart('NH42','NH42 Hologram Display',525000,null,null,'red')" class="buy-btn buy-btn-red">ADD TO CART</button>
+        <button onclick="addToCart('NH42','NH42 Hologram Display',525000,null,null,'red',1,null)" class="buy-btn buy-btn-red">ADD TO CART</button>
       </div>
 
       <div class="product-card">
@@ -1244,7 +1244,7 @@
         </div>
         <div class="product-price">R6,550</div>
         <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
-        <button onclick="addToCart('NH42-CT','NH42-CT with Stand',655000,null,null,'red')" class="buy-btn buy-btn-red">ADD TO CART</button>
+        <button onclick="addToCart('NH42-CT','NH42-CT with Stand',655000,null,null,'red',1,null)" class="buy-btn buy-btn-red">ADD TO CART</button>
       </div>
 
       <div class="product-card">
@@ -1259,7 +1259,7 @@
         </div>
         <div class="product-price">R9,150</div>
         <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
-        <button onclick="addToCart('NH42-BP','NH42-BP with Casing',915000,null,null,'red')" class="buy-btn buy-btn-red">ADD TO CART</button>
+        <button onclick="addToCart('NH42-BP','NH42-BP with Casing',915000,null,null,'red',1,null)" class="buy-btn buy-btn-red">ADD TO CART</button>
       </div>
 
       <div class="product-card">
@@ -1274,7 +1274,7 @@
         </div>
         <div class="product-price">R6,800</div>
         <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
-        <button onclick="addToCart('NH52','NH52 Hologram Display',680000,null,null,'red')" class="buy-btn buy-btn-red">ADD TO CART</button>
+        <button onclick="addToCart('NH52','NH52 Hologram Display',680000,null,null,'red',1,null)" class="buy-btn buy-btn-red">ADD TO CART</button>
       </div>
 
       <div class="product-card">
@@ -1289,7 +1289,7 @@
         </div>
         <div class="product-price">R10,500</div>
         <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
-        <button onclick="addToCart('NH65','NH65 Hologram Display',1050000,null,null,'red')" class="buy-btn buy-btn-red">ADD TO CART</button>
+        <button onclick="addToCart('NH65','NH65 Hologram Display',1050000,null,null,'red',1,null)" class="buy-btn buy-btn-red">ADD TO CART</button>
       </div>
 
       <div class="product-card">
@@ -1304,7 +1304,7 @@
         </div>
         <div class="product-price">R19,200</div>
         <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
-        <button onclick="addToCart('NH100','NH100 Hologram Display',1920000,null,null,'red')" class="buy-btn buy-btn-red">ADD TO CART</button>
+        <button onclick="addToCart('NH100','NH100 Hologram Display',1920000,null,null,'red',1,null)" class="buy-btn buy-btn-red">ADD TO CART</button>
       </div>
 
     </div>
@@ -1315,66 +1315,143 @@
   <div class="tab-content" id="taplink-products">
     <div class="products-grid">
 
+      <!-- Standard Keychain — 5+ -->
       <div class="product-card">
         <div class="product-card-top">
           <div class="product-model" style="color:var(--blue);">Standard Keychain</div>
-          <p class="product-desc">Branded NFC keychain card. 5cm × 3cm. Plastic PLA with metal keyring. Perfect starter card for any professional.</p>
+          <div style="display:inline-block;background:rgba(37,99,176,0.15);border:0.5px solid rgba(37,99,176,0.4);color:#6fa3e0;font-size:10px;letter-spacing:1.5px;padding:3px 8px;border-radius:2px;margin-bottom:10px;">5+ UNITS</div>
+          <p class="product-desc">Branded NFC keychain card. 5cm × 3cm. Plastic PLA with metal keyring. Bulk order — minimum 5 units.</p>
           <div class="product-specs-list">
             <div class="product-spec">Size: 5cm × 3cm</div>
             <div class="product-spec">iOS & Android compatible</div>
             <div class="product-spec">Rewritable · No batteries</div>
           </div>
         </div>
-        <div class="product-price">R270</div>
-        <div class="product-vat">EX VAT · 5+ UNITS / R295 UNDER 5</div>
-        <button onclick="addToCart('STD-KEYCHAIN','Standard Keychain',29500,27000,5,'blue')" class="buy-btn buy-btn-blue">ADD TO CART</button>
+        <div class="product-price">R270 <span style="font-size:14px;color:var(--dim2);">each</span></div>
+        <div class="product-vat">EX VAT · MINIMUM 5 UNITS</div>
+        <button onclick="addToCart('STD-KEYCHAIN-BULK','Standard Keychain (5+)',27000,null,null,'blue',5,null)" class="buy-btn buy-btn-blue">ADD TO CART</button>
       </div>
 
+      <!-- Standard Keychain — under 5 -->
+      <div class="product-card">
+        <div class="product-card-top">
+          <div class="product-model" style="color:var(--blue);">Standard Keychain</div>
+          <div style="display:inline-block;background:rgba(255,255,255,0.05);border:0.5px solid var(--border);color:var(--dim2);font-size:10px;letter-spacing:1.5px;padding:3px 8px;border-radius:2px;margin-bottom:10px;">1–4 UNITS</div>
+          <p class="product-desc">Branded NFC keychain card. 5cm × 3cm. Plastic PLA with metal keyring. Single or small quantity order.</p>
+          <div class="product-specs-list">
+            <div class="product-spec">Size: 5cm × 3cm</div>
+            <div class="product-spec">iOS & Android compatible</div>
+            <div class="product-spec">Rewritable · No batteries</div>
+          </div>
+        </div>
+        <div class="product-price">R295 <span style="font-size:14px;color:var(--dim2);">each</span></div>
+        <div class="product-vat">EX VAT · MAX 4 UNITS</div>
+        <button onclick="addToCart('STD-KEYCHAIN-SINGLE','Standard Keychain (1–4)',29500,null,null,'blue',1,4)" class="buy-btn buy-btn-blue">ADD TO CART</button>
+      </div>
+
+      <!-- Medium Keychain — 5+ -->
       <div class="product-card">
         <div class="product-card-top">
           <div class="product-model" style="color:var(--blue);">Medium Keychain</div>
-          <p class="product-desc">Branded NFC keychain card. 3cm × 3cm square format. Bold and compact, ideal for car dealerships and hospitality.</p>
+          <div style="display:inline-block;background:rgba(37,99,176,0.15);border:0.5px solid rgba(37,99,176,0.4);color:#6fa3e0;font-size:10px;letter-spacing:1.5px;padding:3px 8px;border-radius:2px;margin-bottom:10px;">5+ UNITS</div>
+          <p class="product-desc">Branded NFC keychain card. 3cm × 3cm square format. Bold and compact. Bulk order — minimum 5 units.</p>
           <div class="product-specs-list">
             <div class="product-spec">Size: 3cm × 3cm</div>
             <div class="product-spec">iOS & Android compatible</div>
             <div class="product-spec">Rewritable · No batteries</div>
           </div>
         </div>
-        <div class="product-price">R300</div>
-        <div class="product-vat">EX VAT · 5+ UNITS / R315 UNDER 5</div>
-        <button onclick="addToCart('MED-KEYCHAIN','Medium Keychain',31500,30000,5,'blue')" class="buy-btn buy-btn-blue">ADD TO CART</button>
+        <div class="product-price">R300 <span style="font-size:14px;color:var(--dim2);">each</span></div>
+        <div class="product-vat">EX VAT · MINIMUM 5 UNITS</div>
+        <button onclick="addToCart('MED-KEYCHAIN-BULK','Medium Keychain (5+)',30000,null,null,'blue',5,null)" class="buy-btn buy-btn-blue">ADD TO CART</button>
       </div>
 
+      <!-- Medium Keychain — under 5 -->
+      <div class="product-card">
+        <div class="product-card-top">
+          <div class="product-model" style="color:var(--blue);">Medium Keychain</div>
+          <div style="display:inline-block;background:rgba(255,255,255,0.05);border:0.5px solid var(--border);color:var(--dim2);font-size:10px;letter-spacing:1.5px;padding:3px 8px;border-radius:2px;margin-bottom:10px;">1–4 UNITS</div>
+          <p class="product-desc">Branded NFC keychain card. 3cm × 3cm square format. Bold and compact. Single or small quantity order.</p>
+          <div class="product-specs-list">
+            <div class="product-spec">Size: 3cm × 3cm</div>
+            <div class="product-spec">iOS & Android compatible</div>
+            <div class="product-spec">Rewritable · No batteries</div>
+          </div>
+        </div>
+        <div class="product-price">R315 <span style="font-size:14px;color:var(--dim2);">each</span></div>
+        <div class="product-vat">EX VAT · MAX 4 UNITS</div>
+        <button onclick="addToCart('MED-KEYCHAIN-SINGLE','Medium Keychain (1–4)',31500,null,null,'blue',1,4)" class="buy-btn buy-btn-blue">ADD TO CART</button>
+      </div>
+
+      <!-- Large Keychain — 5+ -->
       <div class="product-card">
         <div class="product-card-top">
           <div class="product-model" style="color:var(--blue);">Large Keychain</div>
-          <p class="product-desc">Branded NFC keychain card. 3cm × 6cm. Larger surface area for standout branding and logo placement.</p>
+          <div style="display:inline-block;background:rgba(37,99,176,0.15);border:0.5px solid rgba(37,99,176,0.4);color:#6fa3e0;font-size:10px;letter-spacing:1.5px;padding:3px 8px;border-radius:2px;margin-bottom:10px;">5+ UNITS</div>
+          <p class="product-desc">Branded NFC keychain card. 3cm × 6cm. Larger surface for standout branding. Bulk order — minimum 5 units.</p>
           <div class="product-specs-list">
             <div class="product-spec">Size: 3cm × 6cm</div>
             <div class="product-spec">iOS & Android compatible</div>
             <div class="product-spec">Rewritable · No batteries</div>
           </div>
         </div>
-        <div class="product-price">R310</div>
-        <div class="product-vat">EX VAT · 5+ UNITS / R325 UNDER 5</div>
-        <button onclick="addToCart('LRG-KEYCHAIN','Large Keychain',32500,31000,5,'blue')" class="buy-btn buy-btn-blue">ADD TO CART</button>
+        <div class="product-price">R310 <span style="font-size:14px;color:var(--dim2);">each</span></div>
+        <div class="product-vat">EX VAT · MINIMUM 5 UNITS</div>
+        <button onclick="addToCart('LRG-KEYCHAIN-BULK','Large Keychain (5+)',31000,null,null,'blue',5,null)" class="buy-btn buy-btn-blue">ADD TO CART</button>
       </div>
 
+      <!-- Large Keychain — under 5 -->
+      <div class="product-card">
+        <div class="product-card-top">
+          <div class="product-model" style="color:var(--blue);">Large Keychain</div>
+          <div style="display:inline-block;background:rgba(255,255,255,0.05);border:0.5px solid var(--border);color:var(--dim2);font-size:10px;letter-spacing:1.5px;padding:3px 8px;border-radius:2px;margin-bottom:10px;">1–4 UNITS</div>
+          <p class="product-desc">Branded NFC keychain card. 3cm × 6cm. Larger surface for standout branding. Single or small quantity order.</p>
+          <div class="product-specs-list">
+            <div class="product-spec">Size: 3cm × 6cm</div>
+            <div class="product-spec">iOS & Android compatible</div>
+            <div class="product-spec">Rewritable · No batteries</div>
+          </div>
+        </div>
+        <div class="product-price">R325 <span style="font-size:14px;color:var(--dim2);">each</span></div>
+        <div class="product-vat">EX VAT · MAX 4 UNITS</div>
+        <button onclick="addToCart('LRG-KEYCHAIN-SINGLE','Large Keychain (1–4)',32500,null,null,'blue',1,4)" class="buy-btn buy-btn-blue">ADD TO CART</button>
+      </div>
+
+      <!-- NFC Card — 5+ -->
       <div class="product-card">
         <div class="product-card-top">
           <div class="product-model" style="color:var(--blue);">NFC Card</div>
-          <p class="product-desc">Full business card size NFC card. 8.5cm × 5.4cm. Replaces your paper business card permanently.</p>
+          <div style="display:inline-block;background:rgba(37,99,176,0.15);border:0.5px solid rgba(37,99,176,0.4);color:#6fa3e0;font-size:10px;letter-spacing:1.5px;padding:3px 8px;border-radius:2px;margin-bottom:10px;">5+ UNITS</div>
+          <p class="product-desc">Full business card size NFC card. 8.5cm × 5.4cm. Replaces your paper business card permanently. Bulk order — minimum 5 units.</p>
           <div class="product-specs-list">
             <div class="product-spec">Size: 8.5cm × 5.4cm</div>
             <div class="product-spec">iOS & Android compatible</div>
             <div class="product-spec">Rewritable · No batteries</div>
           </div>
         </div>
-        <div class="product-price">R300</div>
-        <div class="product-vat">EX VAT · 5+ UNITS / R320 UNDER 5</div>
-        <button onclick="addToCart('NFC-CARD','NFC Card',32000,30000,5,'blue')" class="buy-btn buy-btn-blue">ADD TO CART</button>
+        <div class="product-price">R300 <span style="font-size:14px;color:var(--dim2);">each</span></div>
+        <div class="product-vat">EX VAT · MINIMUM 5 UNITS</div>
+        <button onclick="addToCart('NFC-CARD-BULK','NFC Card (5+)',30000,null,null,'blue',5,null)" class="buy-btn buy-btn-blue">ADD TO CART</button>
       </div>
 
+      <!-- NFC Card — under 5 -->
+      <div class="product-card">
+        <div class="product-card-top">
+          <div class="product-model" style="color:var(--blue);">NFC Card</div>
+          <div style="display:inline-block;background:rgba(255,255,255,0.05);border:0.5px solid var(--border);color:var(--dim2);font-size:10px;letter-spacing:1.5px;padding:3px 8px;border-radius:2px;margin-bottom:10px;">1–4 UNITS</div>
+          <p class="product-desc">Full business card size NFC card. 8.5cm × 5.4cm. Replaces your paper business card permanently. Single or small quantity order.</p>
+          <div class="product-specs-list">
+            <div class="product-spec">Size: 8.5cm × 5.4cm</div>
+            <div class="product-spec">iOS & Android compatible</div>
+            <div class="product-spec">Rewritable · No batteries</div>
+          </div>
+        </div>
+        <div class="product-price">R320 <span style="font-size:14px;color:var(--dim2);">each</span></div>
+        <div class="product-vat">EX VAT · MAX 4 UNITS</div>
+        <button onclick="addToCart('NFC-CARD-SINGLE','NFC Card (1–4)',32000,null,null,'blue',1,4)" class="buy-btn buy-btn-blue">ADD TO CART</button>
+      </div>
+
+      <!-- Table Talker -->
       <div class="product-card">
         <div class="product-card-top">
           <div class="product-model" style="color:var(--blue);">Table Talker</div>
@@ -1387,9 +1464,10 @@
         </div>
         <div class="product-price">R380</div>
         <div class="product-vat">EX VAT · PER UNIT</div>
-        <button onclick="addToCart('TABLE-TALKER','Table Talker',38000,null,null,'blue')" class="buy-btn buy-btn-blue">ADD TO CART</button>
+        <button onclick="addToCart('TABLE-TALKER','Table Talker',38000,null,null,'blue',1,null)" class="buy-btn buy-btn-blue">ADD TO CART</button>
       </div>
 
+      <!-- NFC Wristband -->
       <div class="product-card">
         <div class="product-card-top">
           <div class="product-model" style="color:var(--blue);">NFC Wristband</div>
@@ -1402,11 +1480,11 @@
         </div>
         <div class="product-price">R120</div>
         <div class="product-vat">EX VAT · PER UNIT</div>
-        <button onclick="addToCart('NFC-WRISTBAND','NFC Wristband',12000,null,null,'blue')" class="buy-btn buy-btn-blue">ADD TO CART</button>
+        <button onclick="addToCart('NFC-WRISTBAND','NFC Wristband',12000,null,null,'blue',1,null)" class="buy-btn buy-btn-blue">ADD TO CART</button>
       </div>
 
     </div>
-    <p style="font-size:12px;color:var(--dim3);margin-top:20px;letter-spacing:1px;">* Prices exclude VAT. All products branded with your logo. Minimum order quantities may apply.</p>
+    <p style="font-size:12px;color:var(--dim3);margin-top:20px;letter-spacing:1px;">* Prices exclude VAT. All products branded with your logo. Bulk pricing applies to 5+ units of the same product.</p>
   </div>
 </section>
 
@@ -1578,12 +1656,14 @@
     document.getElementById('cartTotal').textContent = formatRand(total);
   }
 
-  function addToCart(id, name, price, bulkPrice, bulkMin, color) {
+  function addToCart(id, name, price, bulkPrice, bulkMin, color, minQty, maxQty) {
     const existing = cart.find(i => i.id === id);
     if (existing) {
+      if (maxQty !== null && maxQty !== undefined && existing.qty >= maxQty) return;
       existing.qty++;
     } else {
-      cart.push({ id, name, price, bulkPrice, bulkMin, color, qty: 1 });
+      const startQty = minQty || 1;
+      cart.push({ id, name, price, bulkPrice, bulkMin, color, qty: startQty, minQty: minQty || 1, maxQty: maxQty || null });
     }
     saveCart();
     updateCartUI();
@@ -1591,8 +1671,17 @@
   }
 
   function changeQty(idx, delta) {
-    cart[idx].qty += delta;
-    if (cart[idx].qty <= 0) cart.splice(idx, 1);
+    const item = cart[idx];
+    const newQty = item.qty + delta;
+    const min = item.minQty || 1;
+    const max = item.maxQty || null;
+    if (newQty < min) {
+      cart.splice(idx, 1);
+    } else if (max !== null && newQty > max) {
+      return;
+    } else {
+      item.qty = newQty;
+    }
     saveCart();
     updateCartUI();
   }
