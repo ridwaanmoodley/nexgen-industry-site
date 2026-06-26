@@ -403,25 +403,76 @@
 
     /* CLIENTS */
     .clients {
-      padding: 96px 48px;
-      max-width: 1200px;
-      margin: 0 auto;
+      padding: 96px 0;
+      overflow: hidden;
+      border-top: 0.5px solid var(--border);
+      border-bottom: 0.5px solid var(--border);
     }
+    .clients-label {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .marquee-row {
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 28px;
+    }
+    .marquee-row:last-child { margin-bottom: 0; }
+    .marquee-row::before,
+    .marquee-row::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 120px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .marquee-row::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
+    .marquee-row::after  { right: 0; background: linear-gradient(to left,  var(--bg), transparent); }
 
-    .clients-grid {
+    .marquee-track {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+      width: max-content;
+      animation: marqueeLeft 35s linear infinite;
     }
+    .marquee-track.right { animation: marqueeRight 40s linear infinite; }
+    .marquee-track:hover { animation-play-state: paused; }
 
-    .client-pill {
-      font-size: 11px;
-      letter-spacing: 1px;
-      color: var(--dim2);
-      border: 0.5px solid var(--border);
-      padding: 6px 14px;
-      border-radius: 2px;
-      background: var(--dim5);
+    @keyframes marqueeLeft  { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes marqueeRight { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+
+    .logo-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 56px;
+      padding: 0 40px;
+      opacity: 0.35;
+      transition: opacity 0.25s;
+      flex-shrink: 0;
+      color: #ffffff;
+      border-right: 0.5px solid var(--border);
+    }
+    .logo-item:hover { opacity: 0.85; }
+    .logo-item svg { display: block; }
+    .logo-wordmark {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: #ffffff;
+    }
+    .logo-wordmark.serif {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: 400;
+      font-size: 16px;
+      letter-spacing: 1.5px;
+    }
+    .logo-wordmark.tight {
+      letter-spacing: 0.5px;
+      font-size: 15px;
     }
 
     /* HOW IT WORKS */
@@ -1170,38 +1221,206 @@
 
 <!-- CLIENTS -->
 <section class="clients" id="clients">
-  <p class="section-label">TRUSTED BY</p>
-  <div class="clients-grid">
-    <span class="client-pill">BMW Continental Cars</span>
-    <span class="client-pill">TruWorths</span>
-    <span class="client-pill">Woolworths</span>
-    <span class="client-pill">KFC</span>
-    <span class="client-pill">Sun International Boardwalk</span>
-    <span class="client-pill">Edgars</span>
-    <span class="client-pill">Markham</span>
-    <span class="client-pill">Fabiani</span>
-    <span class="client-pill">YDE</span>
-    <span class="client-pill">Sports Scene</span>
-    <span class="client-pill">Total Sports</span>
-    <span class="client-pill">Jet</span>
-    <span class="client-pill">Legit</span>
-    <span class="client-pill">Pep</span>
-    <span class="client-pill">RE/MAX</span>
-    <span class="client-pill">Walmer Park Shopping Centre</span>
-    <span class="client-pill">CFAO Mobility Toyota PE</span>
-    <span class="client-pill">Eastern Cape Motors</span>
-    <span class="client-pill">CTM</span>
-    <span class="client-pill">Pearson High School</span>
-    <span class="client-pill">Nelson Mandela Bay Municipality</span>
-    <span class="client-pill">Miladies</span>
-    <span class="client-pill">Archive</span>
-    <span class="client-pill">Relay Jeans</span>
-    <span class="client-pill">Studio Eighty Eight</span>
-    <span class="client-pill">Refinery</span>
-    <span class="client-pill">Drunken Monkey</span>
-    <span class="client-pill">CliniCare</span>
-    <span class="client-pill">SheerGuard SA</span>
-    <span class="client-pill">Intertown Transport</span>
+  <div class="clients-label"><p class="section-label">TRUSTED BY 30+ BUSINESSES</p></div>
+
+  <!-- ROW 1 — scrolls left -->
+  <div class="marquee-row">
+    <div class="marquee-track">
+      <!-- SET A -->
+      <div class="logo-item"><!-- BMW -->
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="20" stroke="white" stroke-width="2"/>
+          <circle cx="22" cy="22" r="14" stroke="white" stroke-width="1.5"/>
+          <path d="M22 8 A14 14 0 0 1 36 22 L22 22 Z" fill="white"/>
+          <path d="M22 36 A14 14 0 0 1 8 22 L22 22 Z" fill="white"/>
+          <line x1="22" y1="8" x2="22" y2="36" stroke="white" stroke-width="1"/>
+          <line x1="8" y1="22" x2="36" y2="22" stroke="white" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="logo-item"><span class="logo-wordmark serif">TruWorths</span></div>
+      <div class="logo-item"><!-- Woolworths W -->
+        <svg width="42" height="32" viewBox="0 0 42 32" fill="none">
+          <path d="M2 4 L9 28 L15 10 L21 28 L27 10 L33 28 L40 4" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="logo-item"><!-- KFC -->
+        <svg width="42" height="40" viewBox="0 0 42 40" fill="none">
+          <path d="M21 2 C12 2 5 8 5 16 C5 22 9 28 15 31 L13 38 L21 34 L29 38 L27 31 C33 28 37 22 37 16 C37 8 30 2 21 2Z" stroke="white" stroke-width="1.8" fill="none"/>
+          <text x="21" y="22" text-anchor="middle" fill="white" font-family="Arial Black,sans-serif" font-size="11" font-weight="900" letter-spacing="1">KFC</text>
+        </svg>
+      </div>
+      <div class="logo-item"><!-- Sun International — sunburst -->
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="8" fill="white"/>
+          <line x1="22" y1="2" x2="22" y2="10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="22" y1="34" x2="22" y2="42" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="2" y1="22" x2="10" y2="22" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="34" y1="22" x2="42" y2="22" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="7" y1="7" x2="13" y2="13" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="31" y1="31" x2="37" y2="37" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="37" y1="7" x2="31" y2="13" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="7" y1="37" x2="13" y2="31" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <text x="22" y="38" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="5" letter-spacing="0.5">SUN INTERNATIONAL</text>
+        </svg>
+      </div>
+      <div class="logo-item"><span class="logo-wordmark">Edgars</span></div>
+      <div class="logo-item"><span class="logo-wordmark">Markham</span></div>
+      <div class="logo-item"><!-- Fabiani — italic F mark -->
+        <svg width="32" height="44" viewBox="0 0 32 44" fill="none">
+          <text x="4" y="36" fill="white" font-family="Georgia,serif" font-size="38" font-style="italic" font-weight="700">F</text>
+          <line x1="2" y1="40" x2="30" y2="40" stroke="white" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="logo-item"><span class="logo-wordmark">YDE</span></div>
+      <div class="logo-item"><span class="logo-wordmark tight">Sports Scene</span></div>
+      <div class="logo-item"><span class="logo-wordmark tight">Total Sports</span></div>
+      <div class="logo-item"><!-- RE/MAX balloon -->
+        <svg width="38" height="48" viewBox="0 0 38 48" fill="none">
+          <ellipse cx="19" cy="18" rx="14" ry="14" stroke="white" stroke-width="2" fill="none"/>
+          <line x1="19" y1="32" x2="14" y2="46" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="19" y1="32" x2="24" y2="46" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="14" y1="46" x2="24" y2="46" stroke="white" stroke-width="1.5"/>
+          <text x="19" y="22" text-anchor="middle" fill="white" font-family="Arial Black,sans-serif" font-size="8.5" font-weight="900">RE/MAX</text>
+        </svg>
+      </div>
+      <div class="logo-item"><span class="logo-wordmark tight">Walmer Park</span></div>
+      <div class="logo-item"><span class="logo-wordmark tight">Toyota PE</span></div>
+      <div class="logo-item"><span class="logo-wordmark">CTM</span></div>
+      <!-- SET B (duplicate for seamless loop) -->
+      <div class="logo-item">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="20" stroke="white" stroke-width="2"/>
+          <circle cx="22" cy="22" r="14" stroke="white" stroke-width="1.5"/>
+          <path d="M22 8 A14 14 0 0 1 36 22 L22 22 Z" fill="white"/>
+          <path d="M22 36 A14 14 0 0 1 8 22 L22 22 Z" fill="white"/>
+          <line x1="22" y1="8" x2="22" y2="36" stroke="white" stroke-width="1"/>
+          <line x1="8" y1="22" x2="36" y2="22" stroke="white" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="logo-item"><span class="logo-wordmark serif">TruWorths</span></div>
+      <div class="logo-item">
+        <svg width="42" height="32" viewBox="0 0 42 32" fill="none">
+          <path d="M2 4 L9 28 L15 10 L21 28 L27 10 L33 28 L40 4" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="logo-item">
+        <svg width="42" height="40" viewBox="0 0 42 40" fill="none">
+          <path d="M21 2 C12 2 5 8 5 16 C5 22 9 28 15 31 L13 38 L21 34 L29 38 L27 31 C33 28 37 22 37 16 C37 8 30 2 21 2Z" stroke="white" stroke-width="1.8" fill="none"/>
+          <text x="21" y="22" text-anchor="middle" fill="white" font-family="Arial Black,sans-serif" font-size="11" font-weight="900" letter-spacing="1">KFC</text>
+        </svg>
+      </div>
+      <div class="logo-item">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="8" fill="white"/>
+          <line x1="22" y1="2" x2="22" y2="10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="22" y1="34" x2="22" y2="42" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="2" y1="22" x2="10" y2="22" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="34" y1="22" x2="42" y2="22" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="7" y1="7" x2="13" y2="13" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="31" y1="31" x2="37" y2="37" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="37" y1="7" x2="31" y2="13" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="7" y1="37" x2="13" y2="31" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <text x="22" y="38" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="5" letter-spacing="0.5">SUN INTERNATIONAL</text>
+        </svg>
+      </div>
+      <div class="logo-item"><span class="logo-wordmark">Edgars</span></div>
+      <div class="logo-item"><span class="logo-wordmark">Markham</span></div>
+      <div class="logo-item">
+        <svg width="32" height="44" viewBox="0 0 32 44" fill="none">
+          <text x="4" y="36" fill="white" font-family="Georgia,serif" font-size="38" font-style="italic" font-weight="700">F</text>
+          <line x1="2" y1="40" x2="30" y2="40" stroke="white" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="logo-item"><span class="logo-wordmark">YDE</span></div>
+      <div class="logo-item"><span class="logo-wordmark tight">Sports Scene</span></div>
+      <div class="logo-item"><span class="logo-wordmark tight">Total Sports</span></div>
+      <div class="logo-item">
+        <svg width="38" height="48" viewBox="0 0 38 48" fill="none">
+          <ellipse cx="19" cy="18" rx="14" ry="14" stroke="white" stroke-width="2" fill="none"/>
+          <line x1="19" y1="32" x2="14" y2="46" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="19" y1="32" x2="24" y2="46" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="14" y1="46" x2="24" y2="46" stroke="white" stroke-width="1.5"/>
+          <text x="19" y="22" text-anchor="middle" fill="white" font-family="Arial Black,sans-serif" font-size="8.5" font-weight="900">RE/MAX</text>
+        </svg>
+      </div>
+      <div class="logo-item"><span class="logo-wordmark tight">Walmer Park</span></div>
+      <div class="logo-item"><span class="logo-wordmark tight">Toyota PE</span></div>
+      <div class="logo-item"><span class="logo-wordmark">CTM</span></div>
+    </div>
+  </div>
+
+  <!-- ROW 2 — scrolls right -->
+  <div class="marquee-row">
+    <div class="marquee-track right">
+      <!-- SET A -->
+      <div class="logo-item"><span class="logo-wordmark tight">Pep Stores</span></div>
+      <div class="logo-item"><span class="logo-wordmark">Legit</span></div>
+      <div class="logo-item"><span class="logo-wordmark">Jet</span></div>
+      <div class="logo-item"><span class="logo-wordmark serif">Miladies</span></div>
+      <div class="logo-item"><!-- Archive — A with crossbar -->
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <path d="M22 6 L38 38 M22 6 L6 38" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="11" y1="28" x2="33" y2="28" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="logo-item"><span class="logo-wordmark tight">Relay Jeans</span></div>
+      <div class="logo-item"><span class="logo-wordmark tight">Studio 88</span></div>
+      <div class="logo-item"><span class="logo-wordmark">Refinery</span></div>
+      <div class="logo-item"><span class="logo-wordmark tight">Drunken Monkey</span></div>
+      <div class="logo-item"><!-- CliniCare — cross -->
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <rect x="18" y="6" width="8" height="32" rx="2" fill="white"/>
+          <rect x="6" y="18" width="32" height="8" rx="2" fill="white"/>
+        </svg>
+      </div>
+      <div class="logo-item"><span class="logo-wordmark tight">SheerGuard SA</span></div>
+      <div class="logo-item"><!-- Intertown — road/transport icon -->
+        <svg width="52" height="40" viewBox="0 0 52 40" fill="none">
+          <rect x="4" y="14" width="44" height="20" rx="4" stroke="white" stroke-width="2" fill="none"/>
+          <circle cx="14" cy="35" r="4" stroke="white" stroke-width="2" fill="none"/>
+          <circle cx="38" cy="35" r="4" stroke="white" stroke-width="2" fill="none"/>
+          <line x1="4" y1="22" x2="48" y2="22" stroke="white" stroke-width="1"/>
+          <rect x="18" y="6" width="16" height="10" rx="2" stroke="white" stroke-width="1.5" fill="none"/>
+        </svg>
+      </div>
+      <div class="logo-item"><span class="logo-wordmark tight">NMB Municipality</span></div>
+      <div class="logo-item"><span class="logo-wordmark tight">Pearson High School</span></div>
+      <div class="logo-item"><span class="logo-wordmark tight">Eastern Cape Motors</span></div>
+      <!-- SET B (duplicate) -->
+      <div class="logo-item"><span class="logo-wordmark tight">Pep Stores</span></div>
+      <div class="logo-item"><span class="logo-wordmark">Legit</span></div>
+      <div class="logo-item"><span class="logo-wordmark">Jet</span></div>
+      <div class="logo-item"><span class="logo-wordmark serif">Miladies</span></div>
+      <div class="logo-item">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <path d="M22 6 L38 38 M22 6 L6 38" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="11" y1="28" x2="33" y2="28" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="logo-item"><span class="logo-wordmark tight">Relay Jeans</span></div>
+      <div class="logo-item"><span class="logo-wordmark tight">Studio 88</span></div>
+      <div class="logo-item"><span class="logo-wordmark">Refinery</span></div>
+      <div class="logo-item"><span class="logo-wordmark tight">Drunken Monkey</span></div>
+      <div class="logo-item">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <rect x="18" y="6" width="8" height="32" rx="2" fill="white"/>
+          <rect x="6" y="18" width="32" height="8" rx="2" fill="white"/>
+        </svg>
+      </div>
+      <div class="logo-item"><span class="logo-wordmark tight">SheerGuard SA</span></div>
+      <div class="logo-item">
+        <svg width="52" height="40" viewBox="0 0 52 40" fill="none">
+          <rect x="4" y="14" width="44" height="20" rx="4" stroke="white" stroke-width="2" fill="none"/>
+          <circle cx="14" cy="35" r="4" stroke="white" stroke-width="2" fill="none"/>
+          <circle cx="38" cy="35" r="4" stroke="white" stroke-width="2" fill="none"/>
+          <line x1="4" y1="22" x2="48" y2="22" stroke="white" stroke-width="1"/>
+          <rect x="18" y="6" width="16" height="10" rx="2" stroke="white" stroke-width="1.5" fill="none"/>
+        </svg>
+      </div>
+      <div class="logo-item"><span class="logo-wordmark tight">NMB Municipality</span></div>
+      <div class="logo-item"><span class="logo-wordmark tight">Pearson High School</span></div>
+      <div class="logo-item"><span class="logo-wordmark tight">Eastern Cape Motors</span></div>
+    </div>
   </div>
 </section>
 
