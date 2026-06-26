@@ -1115,6 +1115,13 @@
         <p style="font-size:12px;color:var(--dim3);letter-spacing:0.5px;">Fill in your postal code above to load delivery rates.</p>
       </div>
 
+      <p class="checkout-section-label">PROMO CODE</p>
+      <div style="display:flex;gap:8px;margin-bottom:16px;">
+        <input class="form-input" id="promoCode" type="text" placeholder="Enter code" style="flex:1;text-transform:uppercase;" oninput="this.value=this.value.toUpperCase()" />
+        <button onclick="applyPromo()" style="background:var(--dim4);border:1px solid var(--border);color:var(--white);padding:0 16px;border-radius:6px;cursor:pointer;font-size:12px;letter-spacing:1px;white-space:nowrap;">APPLY</button>
+      </div>
+      <div id="promoMsg" style="font-size:12px;margin-bottom:12px;display:none;"></div>
+
       <p class="checkout-section-label">ORDER SUMMARY</p>
       <div class="checkout-summary" id="checkoutSummary"></div>
 
@@ -1955,6 +1962,30 @@
 
   // ── CHECKOUT MODAL ──────────────────────────────────────────
   let selectedDelivery = null;
+  let promoApplied = false;
+
+  const PROMO_CODES = {
+    'FREESHIP': { label: 'Free Delivery', deliveryDiscount: 'free' },
+    'NEXGENFREE': { label: 'Free Delivery', deliveryDiscount: 'free' }
+  };
+
+  function applyPromo() {
+    const code = document.getElementById('promoCode').value.trim().toUpperCase();
+    const msg = document.getElementById('promoMsg');
+    const promo = PROMO_CODES[code];
+    if (promo) {
+      promoApplied = true;
+      msg.style.display = 'block';
+      msg.style.color = '#4caf50';
+      msg.textContent = '✓ ' + promo.label + ' applied';
+    } else {
+      promoApplied = false;
+      msg.style.display = 'block';
+      msg.style.color = '#c0392b';
+      msg.textContent = 'Invalid code';
+    }
+    buildCheckoutSummary();
+  }
   let quoteDebounce = null;
 
   function openCheckout() {
@@ -2037,10 +2068,15 @@
     buildCheckoutSummary();
   }
 
+  function getDeliveryCents() {
+    const base = selectedDelivery ? selectedDelivery.rateCents : DELIVERY_FEE;
+    return promoApplied ? 0 : base;
+  }
+
   function buildCheckoutSummary() {
     const sub = cartSubtotalCents();
     const vat = Math.round(sub * 0.15);
-    const delivery = selectedDelivery ? selectedDelivery.rateCents : DELIVERY_FEE;
+    const delivery = getDeliveryCents();
     const total = sub + vat + delivery;
 
     let html = cart.map(item => {
@@ -2052,10 +2088,11 @@
     }).join('');
 
     const deliveryLabel = selectedDelivery ? selectedDelivery.name + ' (The Courier Guy)' : 'Delivery (The Courier Guy)';
+    const deliveryDisplay = promoApplied ? '<span style="text-decoration:line-through;opacity:0.4;">' + formatRand(selectedDelivery ? selectedDelivery.rateCents : DELIVERY_FEE) + '</span> FREE' : formatRand(delivery);
     html += `<hr class="checkout-divider">
       <div class="checkout-summary-row"><span>Subtotal (ex VAT)</span><span>${formatRand(sub)}</span></div>
       <div class="checkout-summary-row"><span>VAT (15%)</span><span>${formatRand(vat)}</span></div>
-      <div class="checkout-summary-row"><span>${deliveryLabel}</span><span>${formatRand(delivery)}</span></div>
+      <div class="checkout-summary-row"><span>${deliveryLabel}</span><span>${deliveryDisplay}</span></div>
       <div class="checkout-summary-row total"><span>Total</span><span>${formatRand(total)}</span></div>`;
 
     document.getElementById('checkoutSummary').innerHTML = html;
@@ -2082,7 +2119,7 @@
     hideError();
     const sub = cartSubtotalCents();
     const vat = Math.round(sub * 0.15);
-    const delivery = selectedDelivery ? selectedDelivery.rateCents : DELIVERY_FEE;
+    const delivery = getDeliveryCents();
     const totalCents = sub + vat + delivery;
 
     yoco.showPopup({
