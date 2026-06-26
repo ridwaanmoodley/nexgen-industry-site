@@ -1768,19 +1768,19 @@
       <form class="contact-form" onsubmit="handleSubmit(event)">
         <div class="form-group">
           <label class="form-label">YOUR NAME</label>
-          <input class="form-input" type="text" placeholder="John Smith" required />
+          <input class="form-input" id="ctName" type="text" placeholder="John Smith" required />
         </div>
         <div class="form-group">
           <label class="form-label">EMAIL ADDRESS</label>
-          <input class="form-input" type="email" placeholder="john@company.co.za" required />
+          <input class="form-input" id="ctEmail" type="email" placeholder="john@company.co.za" required />
         </div>
         <div class="form-group">
           <label class="form-label">PHONE NUMBER</label>
-          <input class="form-input" type="tel" placeholder="+27 ..." />
+          <input class="form-input" id="ctPhone" type="tel" placeholder="+27 ..." />
         </div>
         <div class="form-group">
           <label class="form-label">I'M INTERESTED IN</label>
-          <select class="form-select">
+          <select class="form-select" id="ctInterest">
             <option value="">Select a product</option>
             <option>NEXGEN Hologram</option>
             <option>TapLink</option>
@@ -1789,7 +1789,7 @@
         </div>
         <div class="form-group">
           <label class="form-label">MESSAGE</label>
-          <textarea class="form-textarea" placeholder="Tell us what you need..."></textarea>
+          <textarea class="form-textarea" id="ctMessage" placeholder="Tell us what you need..."></textarea>
         </div>
         <button type="submit" class="btn-red" style="border:none;width:100%;text-align:center;">SEND ENQUIRY</button>
       </form>
@@ -2095,6 +2095,9 @@
             body: JSON.stringify({
               token: result.id,
               amountInCents: totalCents,
+              subtotalCents: sub,
+              vatCents: vat,
+              deliveryCents: delivery,
               customer: {
                 name: first + ' ' + last,
                 email, phone,
@@ -2152,16 +2155,47 @@
     event.target.classList.add('active');
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const btn = e.target.querySelector('button[type="submit"]');
-    btn.textContent = 'SENT!';
-    btn.style.background = '#1d6a3a';
-    setTimeout(() => {
-      btn.textContent = 'SEND ENQUIRY';
-      btn.style.background = '';
-      e.target.reset();
-    }, 3000);
+    btn.disabled = true;
+    btn.textContent = 'SENDING...';
+
+    const payload = {
+      name: document.getElementById('ctName').value.trim(),
+      email: document.getElementById('ctEmail').value.trim(),
+      phone: document.getElementById('ctPhone').value.trim(),
+      interest: document.getElementById('ctInterest').value,
+      message: document.getElementById('ctMessage').value.trim()
+    };
+
+    try {
+      const resp = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (resp.ok) {
+        btn.textContent = 'SENT!';
+        btn.style.background = '#1d6a3a';
+        setTimeout(() => {
+          btn.textContent = 'SEND ENQUIRY';
+          btn.style.background = '';
+          btn.disabled = false;
+          e.target.reset();
+        }, 3000);
+      } else {
+        btn.textContent = 'FAILED — TRY AGAIN';
+        btn.style.background = '#c0392b';
+        btn.disabled = false;
+        setTimeout(() => { btn.textContent = 'SEND ENQUIRY'; btn.style.background = ''; }, 3000);
+      }
+    } catch {
+      btn.textContent = 'NETWORK ERROR';
+      btn.style.background = '#c0392b';
+      btn.disabled = false;
+      setTimeout(() => { btn.textContent = 'SEND ENQUIRY'; btn.style.background = ''; }, 3000);
+    }
   }
 
   updateCartUI();
