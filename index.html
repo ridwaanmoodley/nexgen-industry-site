@@ -573,6 +573,201 @@
     .buy-btn-blue { background: var(--blue); color: var(--white); }
     .buy-btn-blue:hover { background: #1d4e8f; }
 
+    /* CART ICON */
+    .cart-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--dim2);
+      padding: 4px 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      transition: color 0.2s;
+    }
+    .cart-btn:hover { color: var(--white); }
+    .cart-badge {
+      position: absolute;
+      top: -5px; right: -5px;
+      background: var(--red);
+      color: var(--white);
+      border-radius: 50%;
+      width: 17px; height: 17px;
+      font-size: 9px;
+      font-weight: 700;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .cart-badge.visible { display: flex; }
+
+    /* CART DRAWER */
+    .cart-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 200;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .cart-overlay.open { opacity: 1; pointer-events: all; }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0; right: -440px;
+      width: 420px; max-width: 100vw;
+      height: 100vh;
+      background: var(--bg2);
+      border-left: 0.5px solid var(--border);
+      z-index: 201;
+      display: flex; flex-direction: column;
+      transition: right 0.3s ease;
+    }
+    .cart-drawer.open { right: 0; }
+    .cart-drawer-header {
+      padding: 24px 28px;
+      border-bottom: 0.5px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .cart-drawer-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 20px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+    }
+    .cart-close-btn {
+      background: none; border: none;
+      color: var(--dim2); cursor: pointer;
+      font-size: 22px; line-height: 1; padding: 4px;
+    }
+    .cart-close-btn:hover { color: var(--white); }
+    .cart-items { flex: 1; overflow-y: auto; padding: 20px 28px; }
+    .cart-empty {
+      text-align: center; color: var(--dim3);
+      font-size: 13px; letter-spacing: 1px; padding-top: 48px;
+    }
+    .cart-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 16px 0; border-bottom: 0.5px solid var(--border);
+    }
+    .cart-item-info { flex: 1; }
+    .cart-item-name { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+    .cart-item-unit { font-size: 11px; color: var(--dim3); letter-spacing: 0.5px; margin-bottom: 10px; }
+    .cart-item-qty { display: flex; align-items: center; gap: 10px; }
+    .qty-btn {
+      background: var(--dim4); border: 0.5px solid var(--border);
+      color: var(--white); width: 26px; height: 26px;
+      border-radius: 3px; cursor: pointer; font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .qty-btn:hover { background: var(--dim3); }
+    .qty-num { font-size: 13px; font-weight: 600; min-width: 18px; text-align: center; }
+    .cart-item-right {
+      display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
+    }
+    .cart-item-total {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px; font-weight: 700;
+    }
+    .cart-remove-btn {
+      background: none; border: none; color: var(--dim3);
+      cursor: pointer; font-size: 10px; letter-spacing: 1px; padding: 0;
+    }
+    .cart-remove-btn:hover { color: var(--red); }
+    .cart-footer { padding: 20px 28px; border-top: 0.5px solid var(--border); }
+    .cart-totals { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+    .cart-total-row { display: flex; justify-content: space-between; font-size: 13px; color: var(--dim2); }
+    .cart-total-row.grand {
+      color: var(--white); font-weight: 700; font-size: 15px;
+      border-top: 0.5px solid var(--border); padding-top: 12px; margin-top: 4px;
+    }
+    .cart-checkout-btn {
+      display: block; width: 100%; padding: 14px;
+      background: var(--red); color: var(--white); border: none;
+      border-radius: 3px; font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; cursor: pointer; transition: background 0.2s;
+    }
+    .cart-checkout-btn:hover { background: #a93226; }
+
+    /* CHECKOUT MODAL */
+    .checkout-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 300;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .checkout-overlay.open { opacity: 1; pointer-events: all; }
+    .checkout-modal {
+      background: var(--bg2);
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      width: 100%; max-width: 560px;
+      max-height: 90vh; overflow-y: auto;
+      padding: 36px;
+    }
+    .checkout-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 24px;
+    }
+    .checkout-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+    }
+    .checkout-section-label {
+      font-size: 10px; letter-spacing: 2.5px; color: var(--dim3);
+      text-transform: uppercase; margin: 20px 0 12px;
+    }
+    .checkout-form { display: flex; flex-direction: column; gap: 12px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .checkout-summary {
+      background: var(--dim5); border: 0.5px solid var(--border);
+      border-radius: 3px; padding: 16px 18px; margin-top: 8px;
+    }
+    .checkout-summary-row {
+      display: flex; justify-content: space-between;
+      font-size: 13px; color: var(--dim2); margin-bottom: 7px;
+    }
+    .checkout-summary-row.total {
+      color: var(--white); font-weight: 700; font-size: 15px;
+      border-top: 0.5px solid var(--border); padding-top: 10px; margin-top: 6px; margin-bottom: 0;
+    }
+    .checkout-pay-btn {
+      display: block; width: 100%; padding: 15px;
+      background: var(--red); color: var(--white); border: none;
+      border-radius: 3px; font-size: 12px; font-weight: 700;
+      letter-spacing: 2px; cursor: pointer; transition: background 0.2s;
+      margin-top: 20px;
+    }
+    .checkout-pay-btn:hover { background: #a93226; }
+    .checkout-pay-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .checkout-error {
+      background: rgba(192,57,43,0.12); border: 0.5px solid rgba(192,57,43,0.4);
+      color: #e88; border-radius: 3px; padding: 10px 14px;
+      font-size: 12px; margin-top: 12px; display: none;
+    }
+    .checkout-error.show { display: block; }
+    .checkout-success { text-align: center; padding: 32px 0; display: none; }
+    .checkout-success.show { display: block; }
+    .success-check {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: rgba(29,106,58,0.2); border: 1px solid #1d6a3a;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px; font-size: 24px;
+    }
+    .success-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 26px; font-weight: 700; letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+    .success-msg { font-size: 14px; color: var(--dim2); line-height: 1.7; }
+
     /* CTA */
     .cta {
       padding: 96px 48px;
@@ -742,6 +937,11 @@
     <li><a href="#contact">CONTACT</a></li>
     <li><a href="#shop" class="shop-btn">SHOP</a></li>
   </ul>
+  <button class="cart-btn" onclick="openCart()" aria-label="Cart">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    CART
+    <span class="cart-badge" id="cartBadge">0</span>
+  </button>
   <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -753,6 +953,118 @@
   <a href="#clients" onclick="toggleMenu()">CLIENTS</a>
   <a href="#contact" onclick="toggleMenu()">CONTACT</a>
   <a href="#shop" class="shop" onclick="toggleMenu()">SHOP NOW</a>
+  <a href="#" onclick="toggleMenu(); openCart();" style="color:var(--dim2);">CART (<span id="cartBadgeMobile">0</span>)</a>
+</div>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-header">
+    <span class="cart-drawer-title">Your Cart</span>
+    <button class="cart-close-btn" onclick="closeCart()">&#x2715;</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <p class="cart-empty" id="cartEmpty">Your cart is empty.</p>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-totals">
+      <div class="cart-total-row"><span>Subtotal (ex VAT)</span><span id="cartSubtotal">R0</span></div>
+      <div class="cart-total-row"><span>VAT (15%)</span><span id="cartVat">R0</span></div>
+      <div class="cart-total-row"><span>Delivery</span><span id="cartDelivery">R150</span></div>
+      <div class="cart-total-row grand"><span>Total</span><span id="cartTotal">R0</span></div>
+    </div>
+    <button class="cart-checkout-btn" onclick="openCheckout()">PROCEED TO CHECKOUT</button>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="checkout-overlay" id="checkoutOverlay">
+  <div class="checkout-modal">
+    <div class="checkout-header">
+      <span class="checkout-title">Checkout</span>
+      <button class="cart-close-btn" onclick="closeCheckout()">&#x2715;</button>
+    </div>
+
+    <div id="checkoutForm">
+      <p class="checkout-section-label">YOUR DETAILS</p>
+      <div class="checkout-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input class="form-input" id="coFirstName" type="text" placeholder="Jane" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input class="form-input" id="coLastName" type="text" placeholder="Smith" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" id="coEmail" type="email" placeholder="jane@company.co.za" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input class="form-input" id="coPhone" type="tel" placeholder="+27 82 000 0000" required />
+        </div>
+      </div>
+
+      <p class="checkout-section-label">DELIVERY ADDRESS</p>
+      <div class="checkout-form">
+        <div class="form-group">
+          <label class="form-label">Street Address</label>
+          <input class="form-input" id="coStreet" type="text" placeholder="12 Main Road" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Suburb</label>
+            <input class="form-input" id="coSuburb" type="text" placeholder="Greenpoint" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">City</label>
+            <input class="form-input" id="coCity" type="text" placeholder="Cape Town" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Province</label>
+            <select class="form-input form-select" id="coProvince" required>
+              <option value="">Select Province</option>
+              <option>Eastern Cape</option>
+              <option>Western Cape</option>
+              <option>Gauteng</option>
+              <option>KwaZulu-Natal</option>
+              <option>Limpopo</option>
+              <option>Mpumalanga</option>
+              <option>North West</option>
+              <option>Northern Cape</option>
+              <option>Free State</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Postal Code</label>
+            <input class="form-input" id="coPostal" type="text" placeholder="8001" required />
+          </div>
+        </div>
+      </div>
+
+      <p class="checkout-section-label">ORDER SUMMARY</p>
+      <div class="checkout-summary" id="checkoutSummary"></div>
+
+      <div class="checkout-error" id="checkoutError"></div>
+      <button class="checkout-pay-btn" id="checkoutPayBtn" onclick="initiatePayment()">PAY NOW</button>
+    </div>
+
+    <div class="checkout-success" id="checkoutSuccess">
+      <div class="success-check">&#10003;</div>
+      <div class="success-title">ORDER CONFIRMED</div>
+      <p class="success-msg">
+        Thank you! Your payment was successful.<br>
+        We'll be in touch shortly to confirm your order and arrange delivery.<br><br>
+        <strong id="successRef"></strong>
+      </p>
+      <button class="checkout-pay-btn" onclick="closeCheckout()" style="margin-top:24px;">CLOSE</button>
+    </div>
+  </div>
 </div>
 
 <!-- HERO -->
@@ -917,7 +1229,7 @@
         </div>
         <div class="product-price">R5,250</div>
         <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
-        <button onclick="payNow('NH42 Hologram Display', 525000)" class="buy-btn buy-btn-red">BUY NOW</button>
+        <button onclick="addToCart('NH42','NH42 Hologram Display',525000,null,null,'red')" class="buy-btn buy-btn-red">ADD TO CART</button>
       </div>
 
       <div class="product-card">
@@ -932,7 +1244,7 @@
         </div>
         <div class="product-price">R6,550</div>
         <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
-        <button onclick="payNow('NH42-CT Hologram Display with Stand', 655000)" class="buy-btn buy-btn-red">BUY NOW</button>
+        <button onclick="addToCart('NH42-CT','NH42-CT with Stand',655000,null,null,'red')" class="buy-btn buy-btn-red">ADD TO CART</button>
       </div>
 
       <div class="product-card">
@@ -947,7 +1259,7 @@
         </div>
         <div class="product-price">R9,150</div>
         <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
-        <button onclick="payNow('NH42-BP Hologram Display with Casing', 915000)" class="buy-btn buy-btn-red">BUY NOW</button>
+        <button onclick="addToCart('NH42-BP','NH42-BP with Casing',915000,null,null,'red')" class="buy-btn buy-btn-red">ADD TO CART</button>
       </div>
 
       <div class="product-card">
@@ -962,7 +1274,7 @@
         </div>
         <div class="product-price">R6,800</div>
         <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
-        <button onclick="payNow('NH52 Hologram Display', 680000)" class="buy-btn buy-btn-red">BUY NOW</button>
+        <button onclick="addToCart('NH52','NH52 Hologram Display',680000,null,null,'red')" class="buy-btn buy-btn-red">ADD TO CART</button>
       </div>
 
       <div class="product-card">
@@ -977,7 +1289,7 @@
         </div>
         <div class="product-price">R10,500</div>
         <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
-        <button onclick="payNow('NH65 Hologram Display', 1050000)" class="buy-btn buy-btn-red">BUY NOW</button>
+        <button onclick="addToCart('NH65','NH65 Hologram Display',1050000,null,null,'red')" class="buy-btn buy-btn-red">ADD TO CART</button>
       </div>
 
       <div class="product-card">
@@ -992,7 +1304,7 @@
         </div>
         <div class="product-price">R19,200</div>
         <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
-        <button onclick="payNow('NH100 Hologram Display', 1920000)" class="buy-btn buy-btn-red">BUY NOW</button>
+        <button onclick="addToCart('NH100','NH100 Hologram Display',1920000,null,null,'red')" class="buy-btn buy-btn-red">ADD TO CART</button>
       </div>
 
     </div>
@@ -1015,7 +1327,7 @@
         </div>
         <div class="product-price">R270</div>
         <div class="product-vat">EX VAT · 5+ UNITS / R295 UNDER 5</div>
-        <button onclick="payNow('TapLink Standard Keychain (5+ units)', 27000)" class="buy-btn buy-btn-blue">BUY NOW</button>
+        <button onclick="addToCart('STD-KEYCHAIN','Standard Keychain',29500,27000,5,'blue')" class="buy-btn buy-btn-blue">ADD TO CART</button>
       </div>
 
       <div class="product-card">
@@ -1030,7 +1342,7 @@
         </div>
         <div class="product-price">R300</div>
         <div class="product-vat">EX VAT · 5+ UNITS / R315 UNDER 5</div>
-        <button onclick="payNow('TapLink Medium Keychain (5+ units)', 30000)" class="buy-btn buy-btn-blue">BUY NOW</button>
+        <button onclick="addToCart('MED-KEYCHAIN','Medium Keychain',31500,30000,5,'blue')" class="buy-btn buy-btn-blue">ADD TO CART</button>
       </div>
 
       <div class="product-card">
@@ -1045,7 +1357,7 @@
         </div>
         <div class="product-price">R310</div>
         <div class="product-vat">EX VAT · 5+ UNITS / R325 UNDER 5</div>
-        <button onclick="payNow('TapLink Large Keychain (5+ units)', 31000)" class="buy-btn buy-btn-blue">BUY NOW</button>
+        <button onclick="addToCart('LRG-KEYCHAIN','Large Keychain',32500,31000,5,'blue')" class="buy-btn buy-btn-blue">ADD TO CART</button>
       </div>
 
       <div class="product-card">
@@ -1060,7 +1372,7 @@
         </div>
         <div class="product-price">R300</div>
         <div class="product-vat">EX VAT · 5+ UNITS / R320 UNDER 5</div>
-        <button onclick="payNow('TapLink NFC Card (5+ units)', 30000)" class="buy-btn buy-btn-blue">BUY NOW</button>
+        <button onclick="addToCart('NFC-CARD','NFC Card',32000,30000,5,'blue')" class="buy-btn buy-btn-blue">ADD TO CART</button>
       </div>
 
       <div class="product-card">
@@ -1075,7 +1387,7 @@
         </div>
         <div class="product-price">R380</div>
         <div class="product-vat">EX VAT · PER UNIT</div>
-        <button onclick="payNow('TapLink Table Talker', 38000)" class="buy-btn buy-btn-blue">BUY NOW</button>
+        <button onclick="addToCart('TABLE-TALKER','Table Talker',38000,null,null,'blue')" class="buy-btn buy-btn-blue">ADD TO CART</button>
       </div>
 
       <div class="product-card">
@@ -1090,7 +1402,7 @@
         </div>
         <div class="product-price">R120</div>
         <div class="product-vat">EX VAT · PER UNIT</div>
-        <button onclick="payNow('TapLink NFC Wristband', 12000)" class="buy-btn buy-btn-blue">BUY NOW</button>
+        <button onclick="addToCart('NFC-WRISTBAND','NFC Wristband',12000,null,null,'blue')" class="buy-btn buy-btn-blue">ADD TO CART</button>
       </div>
 
     </div>
@@ -1188,25 +1500,251 @@
 <script>
   const yoco = new window.YocoSDK({ publicKey: 'pk_live_977da55dmWLdLrLaaf44' });
 
-  function payNow(productName, amountInCents) {
+  // ── CART STATE ──────────────────────────────────────────────
+  let cart = JSON.parse(localStorage.getItem('nexgen_cart') || '[]');
+  const DELIVERY_FEE = 15000; // R150 in cents
+
+  function saveCart() {
+    localStorage.setItem('nexgen_cart', JSON.stringify(cart));
+  }
+
+  function getItemPrice(item) {
+    if (item.bulkPrice && item.bulkMin && item.qty >= item.bulkMin) {
+      return item.bulkPrice;
+    }
+    return item.price;
+  }
+
+  function cartSubtotalCents() {
+    return cart.reduce((sum, item) => sum + getItemPrice(item) * item.qty, 0);
+  }
+
+  function formatRand(cents) {
+    return 'R' + (cents / 100).toLocaleString('en-ZA', { minimumFractionDigits: 0 });
+  }
+
+  function updateCartUI() {
+    const totalQty = cart.reduce((s, i) => s + i.qty, 0);
+    const badge = document.getElementById('cartBadge');
+    const badgeMob = document.getElementById('cartBadgeMobile');
+    badge.textContent = totalQty;
+    badgeMob.textContent = totalQty;
+    badge.classList.toggle('visible', totalQty > 0);
+
+    const container = document.getElementById('cartItems');
+    const empty = document.getElementById('cartEmpty');
+    const footer = document.getElementById('cartFooter');
+
+    if (cart.length === 0) {
+      empty.style.display = 'block';
+      footer.style.display = 'none';
+      container.innerHTML = '';
+      container.appendChild(empty);
+      return;
+    }
+
+    empty.style.display = 'none';
+    footer.style.display = 'block';
+
+    container.innerHTML = cart.map((item, idx) => {
+      const unitPrice = getItemPrice(item);
+      const lineTotal = unitPrice * item.qty;
+      const bulkNote = item.bulkPrice && item.bulkMin
+        ? (item.qty >= item.bulkMin ? ' · Bulk price applied' : ` · Add ${item.bulkMin - item.qty} more for bulk rate`)
+        : '';
+      return `
+        <div class="cart-item">
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-unit">${formatRand(unitPrice)} each${bulkNote}</div>
+            <div class="cart-item-qty">
+              <button class="qty-btn" onclick="changeQty(${idx}, -1)">−</button>
+              <span class="qty-num">${item.qty}</span>
+              <button class="qty-btn" onclick="changeQty(${idx}, 1)">+</button>
+            </div>
+          </div>
+          <div class="cart-item-right">
+            <div class="cart-item-total">${formatRand(lineTotal)}</div>
+            <button class="cart-remove-btn" onclick="removeItem(${idx})">REMOVE</button>
+          </div>
+        </div>`;
+    }).join('');
+
+    const sub = cartSubtotalCents();
+    const vat = Math.round(sub * 0.15);
+    const total = sub + vat + DELIVERY_FEE;
+    document.getElementById('cartSubtotal').textContent = formatRand(sub);
+    document.getElementById('cartVat').textContent = formatRand(vat);
+    document.getElementById('cartTotal').textContent = formatRand(total);
+  }
+
+  function addToCart(id, name, price, bulkPrice, bulkMin, color) {
+    const existing = cart.find(i => i.id === id);
+    if (existing) {
+      existing.qty++;
+    } else {
+      cart.push({ id, name, price, bulkPrice, bulkMin, color, qty: 1 });
+    }
+    saveCart();
+    updateCartUI();
+    openCart();
+  }
+
+  function changeQty(idx, delta) {
+    cart[idx].qty += delta;
+    if (cart[idx].qty <= 0) cart.splice(idx, 1);
+    saveCart();
+    updateCartUI();
+  }
+
+  function removeItem(idx) {
+    cart.splice(idx, 1);
+    saveCart();
+    updateCartUI();
+  }
+
+  // ── CART DRAWER ─────────────────────────────────────────────
+  function openCart() {
+    document.getElementById('cartOverlay').classList.add('open');
+    document.getElementById('cartDrawer').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCart() {
+    document.getElementById('cartOverlay').classList.remove('open');
+    document.getElementById('cartDrawer').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ── CHECKOUT MODAL ──────────────────────────────────────────
+  function openCheckout() {
+    closeCart();
+    document.getElementById('checkoutSuccess').classList.remove('show');
+    document.getElementById('checkoutForm').style.display = 'block';
+    buildCheckoutSummary();
+    document.getElementById('checkoutOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCheckout() {
+    document.getElementById('checkoutOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function buildCheckoutSummary() {
+    const sub = cartSubtotalCents();
+    const vat = Math.round(sub * 0.15);
+    const total = sub + vat + DELIVERY_FEE;
+
+    let html = cart.map(item => {
+      const unitPrice = getItemPrice(item);
+      return `<div class="checkout-summary-row">
+        <span>${item.name} × ${item.qty}</span>
+        <span>${formatRand(unitPrice * item.qty)}</span>
+      </div>`;
+    }).join('');
+
+    html += `<hr class="checkout-divider">
+      <div class="checkout-summary-row"><span>Subtotal (ex VAT)</span><span>${formatRand(sub)}</span></div>
+      <div class="checkout-summary-row"><span>VAT (15%)</span><span>${formatRand(vat)}</span></div>
+      <div class="checkout-summary-row"><span>Delivery (The Courier Guy)</span><span>${formatRand(DELIVERY_FEE)}</span></div>
+      <div class="checkout-summary-row total"><span>Total</span><span>${formatRand(total)}</span></div>`;
+
+    document.getElementById('checkoutSummary').innerHTML = html;
+    document.getElementById('checkoutPayBtn').textContent = 'PAY ' + formatRand(total);
+  }
+
+  // ── PAYMENT ─────────────────────────────────────────────────
+  function initiatePayment() {
+    const first = document.getElementById('coFirstName').value.trim();
+    const last = document.getElementById('coLastName').value.trim();
+    const email = document.getElementById('coEmail').value.trim();
+    const phone = document.getElementById('coPhone').value.trim();
+    const street = document.getElementById('coStreet').value.trim();
+    const suburb = document.getElementById('coSuburb').value.trim();
+    const city = document.getElementById('coCity').value.trim();
+    const province = document.getElementById('coProvince').value;
+    const postal = document.getElementById('coPostal').value.trim();
+
+    if (!first || !last || !email || !phone || !street || !suburb || !city || !province || !postal) {
+      showError('Please fill in all required fields.');
+      return;
+    }
+
+    hideError();
+    const sub = cartSubtotalCents();
+    const vat = Math.round(sub * 0.15);
+    const totalCents = sub + vat + DELIVERY_FEE;
+
     yoco.showPopup({
-      amountInCents: amountInCents,
+      amountInCents: totalCents,
       currency: 'ZAR',
       name: 'NEXGEN Industry',
-      description: productName,
-      callback: function(result) {
+      description: `Order — ${cart.map(i => i.name).join(', ')}`,
+      callback: async function(result) {
         if (result.error) {
-          alert('Payment failed: ' + result.error.message);
-        } else {
-          alert('Payment successful! We will be in touch shortly to confirm your order.');
+          showError('Payment failed: ' + result.error.message);
+          return;
+        }
+
+        const btn = document.getElementById('checkoutPayBtn');
+        btn.disabled = true;
+        btn.textContent = 'PROCESSING...';
+
+        try {
+          const resp = await fetch('/api/charge', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              token: result.id,
+              amountInCents: totalCents,
+              customer: {
+                name: first + ' ' + last,
+                email,
+                phone,
+                address: `${street}, ${suburb}, ${city}, ${province}, ${postal}`
+              },
+              items: cart,
+              orderId: 'NG-' + Date.now()
+            })
+          });
+
+          const data = await resp.json();
+
+          if (data.success) {
+            cart = [];
+            saveCart();
+            updateCartUI();
+            document.getElementById('successRef').textContent = 'Order ref: ' + (data.orderId || 'NG-' + Date.now());
+            document.getElementById('checkoutForm').style.display = 'none';
+            document.getElementById('checkoutSuccess').classList.add('show');
+          } else {
+            btn.disabled = false;
+            buildCheckoutSummary();
+            showError(data.error || 'Payment could not be processed. Please try again.');
+          }
+        } catch (e) {
+          btn.disabled = false;
+          buildCheckoutSummary();
+          showError('A network error occurred. Please try again.');
         }
       }
     });
   }
 
+  function showError(msg) {
+    const el = document.getElementById('checkoutError');
+    el.textContent = msg;
+    el.classList.add('show');
+  }
+
+  function hideError() {
+    document.getElementById('checkoutError').classList.remove('show');
+  }
+
+  // ── UI HELPERS ───────────────────────────────────────────────
   function toggleMenu() {
-    const nav = document.getElementById('mobileNav');
-    nav.classList.toggle('open');
+    document.getElementById('mobileNav').classList.toggle('open');
   }
 
   function switchTab(tabId) {
@@ -1227,6 +1765,8 @@
       e.target.reset();
     }, 3000);
   }
+
+  updateCartUI();
 </script>
 
 </body>
