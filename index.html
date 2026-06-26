@@ -1861,9 +1861,7 @@
   </div>
 </footer>
 
-<script src="https://js.yoco.com/sdk/v1/yoco-sdk-web.js"></script>
 <script>
-  const yoco = new window.YocoSDK({ publicKey: 'pk_live_977da55dmWLdLrLaaf44' });
 
   // ── CART STATE ──────────────────────────────────────────────
   let cart = JSON.parse(localStorage.getItem('nexgen_cart') || '[]');
@@ -2142,7 +2140,7 @@
   }
 
   // ── PAYMENT ─────────────────────────────────────────────────
-  function initiatePayment() {
+  async function initiatePayment() {
     const first = document.getElementById('coFirstName').value.trim();
     const last = document.getElementById('coLastName').value.trim();
     const email = document.getElementById('coEmail').value.trim();
@@ -2164,71 +2162,104 @@
     const delivery = getDeliveryCents();
     const totalCents = sub + vat + delivery;
 
-    const overlay = document.getElementById('checkoutOverlay');
-    overlay.classList.remove('open');
-    document.body.style.overflow = '';
+    const btn = document.getElementById('checkoutPayBtn');
+    btn.disabled = true;
+    btn.textContent = 'REDIRECTING TO PAYMENT...';
 
-    yoco.showPopup({
-      amountInCents: totalCents,
-      currency: 'ZAR',
-      name: 'NEXGEN Industry',
-      description: `Order — ${cart.map(i => i.name).join(', ')}`,
-      callback: async function(result) {
-        if (result.error) {
-          overlay.classList.add('open');
-          document.body.style.overflow = 'hidden';
-          showError('Payment failed: ' + result.error.message);
-          return;
-        }
+    // Save order details so we can process after Yoco redirects back
+    localStorage.setItem('nexgen_pending_order', JSON.stringify({
+      customer: { name: first + ' ' + last, email, phone, street, suburb, city, province, postal },
+      items: cart,
+      subtotalCents: sub,
+      vatCents: vat,
+      deliveryCents: delivery,
+      totalCents,
+      deliveryOption: selectedDelivery
+    }));
 
-        const btn = document.getElementById('checkoutPayBtn');
-        btn.disabled = true;
-        btn.textContent = 'PROCESSING...';
+    try {
+      const resp = await fetch('/api/create-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amountInCents: totalCents })
+      });
+      const data = await resp.json();
+      if (!data.redirectUrl) throw new Error(data.error || 'No redirect URL returned');
 
-        try {
-          const resp = await fetch('/api/charge', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              token: result.id,
-              amountInCents: totalCents,
-              subtotalCents: sub,
-              vatCents: vat,
-              deliveryCents: delivery,
-              customer: {
-                name: first + ' ' + last,
-                email, phone,
-                street, suburb, city, province, postal,
-                address: `${street}, ${suburb}, ${city}, ${province}, ${postal}`
-              },
-              items: cart,
-              orderId: 'NG-' + Date.now(),
-              deliveryOption: selectedDelivery
-            })
-          });
+      // Store checkoutId alongside order details
+      const pending = JSON.parse(localStorage.getItem('nexgen_pending_order'));
+      pending.checkoutId = data.checkoutId;
+      localStorage.setItem('nexgen_pending_order', JSON.stringify(pending));
 
-          const data = await resp.json();
-
-          if (data.success) {
-            cart = [];
-            saveCart();
-            updateCartUI();
-            document.getElementById('successRef').textContent = 'Order ref: ' + (data.orderId || 'NG-' + Date.now());
-            document.getElementById('checkoutForm').style.display = 'none';
-            document.getElementById('checkoutSuccess').classList.add('show');
-          } else {
-            btn.disabled = false;
-            buildCheckoutSummary();
-            showError(data.error || 'Payment could not be processed. Please try again.');
-          }
-        } catch (e) {
-          btn.disabled = false;
-          buildCheckoutSummary();
-          showError('A network error occurred. Please try again.');
-        }
-      }
-    });
+      window.location.href = data.redirectUrl;
+    } catch (err) {
+      btn.disabled = false;
+      buildCheckoutSummary();
+      showError('Could not start payment: ' + err.message);
+    }
   }
+
+  // ── HANDLE RETURN FROM YOCO ──────────────────────────────────
+  (async function handlePaymentReturn() {
+    const params = new URLSearchParams(window.location.search);
+    const payment = params.get('payment');
+    if (!payment) return;
+
+    window.history.replaceState({}, '', window.location.pathname);
+
+    if (payment === 'cancel') {
+      openCheckout();
+      showError('Payment was cancelled. You can try again when ready.');
+      return;
+    }
+
+    if (payment === 'failed') {
+      openCheckout();
+      showError('Payment failed. Please check your card details and try again.');
+      return;
+    }
+
+    if (payment === 'success') {
+      const pending = JSON.parse(localStorage.getItem('nexgen_pending_order') || 'null');
+      if (!pending || !pending.checkoutId) {
+        openCheckout();
+        showError('We could not retrieve your order details. Please contact us at ridwaan@nexgenindustry.co.za');
+        return;
+      }
+
+      // Show checkout in processing state
+      document.getElementById('checkoutOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('checkoutForm').style.display = 'none';
+      document.getElementById('checkoutSuccess').classList.add('show');
+      document.getElementById('successRef').textContent = 'Processing your order...';
+
+      try {
+        const resp = await fetch('/api/verify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(pending)
+        });
+        const data = await resp.json();
+
+        if (data.success) {
+          cart = [];
+          saveCart();
+          updateCartUI();
+          localStorage.removeItem('nexgen_pending_order');
+          document.getElementById('successRef').textContent = 'Order ref: ' + data.orderId;
+        } else {
+          document.getElementById('checkoutSuccess').classList.remove('show');
+          document.getElementById('checkoutForm').style.display = 'block';
+          showError(data.error || 'Payment verification failed. Please contact us.');
+        }
+      } catch (e) {
+        document.getElementById('checkoutSuccess').classList.remove('show');
+        document.getElementById('checkoutForm').style.display = 'block';
+        showError('Could not verify payment. Please contact us at ridwaan@nexgenindustry.co.za');
+      }
+    }
+  })();
 
   function showError(msg) {
     const el = document.getElementById('checkoutError');
