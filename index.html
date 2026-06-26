@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEXGEN Industry — Built for Businesses That Want to Stand Out</title>
+  <meta name="description" content="Holographic displays and NFC smart networking solutions for businesses across South Africa. ICASA certified." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #c0392b;
+      --blue: #2563b0;
+      --bg: #080a10;
+      --bg2: #0d1018;
+      --bg3: #111520;
+      --white: #ffffff;
+      --dim1: rgba(255,255,255,0.6);
+      --dim2: rgba(255,255,255,0.38);
+      --dim3: rgba(255,255,255,0.18);
+      --dim4: rgba(255,255,255,0.06);
+      --dim5: rgba(255,255,255,0.03);
+      --border: rgba(255,255,255,0.07);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 48px;
+      height: 64px;
+      background: rgba(8,10,16,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.05;
+      text-decoration: none;
+    }
+    .logo-top {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 4px;
+    }
+    .logo-top .r { color: var(--red); }
+    .logo-top .b { color: var(--blue); }
+    .logo-bottom {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      color: var(--white);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--dim2);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links .shop-btn {
+      background: var(--red);
+      color: var(--white);
+      padding: 8px 20px;
+      border-radius: 3px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+    .nav-links .shop-btn:hover { background: #a93226; color: var(--white); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--white);
+      transition: all 0.2s;
+    }
+
+    /* MOBILE NAV */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: rgba(8,10,16,0.98);
+      border-bottom: 0.5px solid var(--border);
+      padding: 24px 32px;
+      z-index: 99;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 13px;
+      letter-spacing: 2px;
+      color: var(--dim2);
+      text-decoration: none;
+    }
+    .mobile-nav a.shop { color: var(--red); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 32px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+
+    .hero-glow-r {
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(192,57,43,0.12) 0%, transparent 70%);
+      top: 20%; left: 10%;
+      pointer-events: none;
+    }
+    .hero-glow-b {
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,176,0.12) 0%, transparent 70%);
+      top: 20%; right: 10%;
+      pointer-events: none;
+    }
+
+    .hero-inner { position: relative; max-width: 700px; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      color: var(--red);
+      border: 0.5px solid rgba(192,57,43,0.35);
+      padding: 6px 18px;
+      border-radius: 20px;
+      margin-bottom: 32px;
+    }
+    .badge-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+
+    h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(40px, 7vw, 72px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+    h1 .accent-r { color: var(--red); }
+    h1 .accent-b { color: var(--blue); }
+
+    .hero-sub {
+      font-size: 16px;
+      color: var(--dim2);
+      max-width: 460px;
+      margin: 0 auto 40px;
+      line-height: 1.75;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-red {
+      background: var(--red);
+      color: var(--white);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+    .btn-red:hover { background: #a93226; }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--dim1);
+      border: 0.5px solid rgba(255,255,255,0.18);
+      padding: 14px 32px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.4); color: var(--white); }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--dim3);
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--dim3), transparent);
+    }
+
+    /* SECTION LABEL */
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--dim3);
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    /* BRANDS SECTION */
+    .brands {
+      padding: 96px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .brands-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--border);
+      border: 0.5px solid var(--border);
+    }
+
+    .brand-card {
+      background: var(--bg2);
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .brand-card:hover { background: var(--bg3); }
+
+    .brand-accent-line {
+      width: 40px;
+      height: 2px;
+      margin-bottom: 24px;
+    }
+
+    .brand-num {
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      color: var(--dim3);
+      margin-bottom: 14px;
+    }
+
+    .brand-card h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .brand-card p {
+      font-size: 14px;
+      color: var(--dim2);
+      line-height: 1.75;
+      margin-bottom: 28px;
+      max-width: 380px;
+    }
+
+    .brand-specs {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+
+    .spec {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--dim2);
+    }
+    .spec-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: gap 0.2s;
+    }
+    .brand-link:hover { gap: 14px; }
+    .brand-link svg {
+      width: 14px; height: 14px;
+    }
+
+    /* STATS */
+    .stats-bar {
+      border-top: 0.5px solid var(--border);
+      border-bottom: 0.5px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .stat {
+      text-align: center;
+      padding: 40px 16px;
+      border-right: 0.5px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--white);
+    }
+    .stat-lbl {
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      color: var(--dim3);
+      margin-top: 6px;
+    }
+
+    /* CLIENTS */
+    .clients {
+      padding: 96px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .clients-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .client-pill {
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: var(--dim2);
+      border: 0.5px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 2px;
+      background: var(--dim5);
+    }
+
+    /* HOW IT WORKS */
+    .how {
+      padding: 96px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+
+    .how-block { border-top: 0.5px solid var(--border); padding-top: 32px; }
+    .how-block-label {
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      color: var(--dim3);
+      margin-bottom: 20px;
+    }
+    .how-block h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .how-block p {
+      font-size: 14px;
+      color: var(--dim2);
+      line-height: 1.75;
+    }
+
+    /* SHOP / PRODUCTS */
+    .shop {
+      padding: 96px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .shop-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 48px;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--dim3);
+      font-size: 11px;
+      letter-spacing: 2px;
+      padding: 14px 28px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .tab-btn.active {
+      color: var(--white);
+      border-bottom-color: var(--red);
+    }
+    .tab-btn:hover { color: var(--white); }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .product-card {
+      background: var(--bg2);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card-top {
+      flex: 1;
+    }
+
+    .product-model {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .product-desc {
+      font-size: 13px;
+      color: var(--dim2);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .product-specs-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+
+    .product-spec {
+      font-size: 12px;
+      color: var(--dim3);
+      letter-spacing: 0.5px;
+    }
+
+    .product-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .product-vat {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      color: var(--dim3);
+      margin-bottom: 20px;
+    }
+
+    .buy-btn {
+      display: block;
+      text-align: center;
+      padding: 12px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      transition: background 0.2s;
+    }
+
+    .buy-btn-red { background: var(--red); color: var(--white); }
+    .buy-btn-red:hover { background: #a93226; }
+    .buy-btn-blue { background: var(--blue); color: var(--white); }
+    .buy-btn-blue:hover { background: #1d4e8f; }
+
+    /* CTA */
+    .cta {
+      padding: 96px 48px;
+      text-align: center;
+      border-top: 0.5px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(192,57,43,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .cta-inner { position: relative; }
+    .cta h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .cta p {
+      font-size: 15px;
+      color: var(--dim2);
+      margin-bottom: 36px;
+    }
+    .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* CONTACT */
+    .contact {
+      padding: 96px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+    }
+    .contact-info h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .contact-item {
+      margin-bottom: 16px;
+    }
+    .contact-item-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--dim3);
+      margin-bottom: 4px;
+    }
+    .contact-item-val {
+      font-size: 14px;
+      color: var(--dim1);
+    }
+    .contact-item-val a { color: var(--dim1); text-decoration: none; }
+    .contact-item-val a:hover { color: var(--white); }
+
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-label { font-size: 10px; letter-spacing: 2px; color: var(--dim3); }
+    .form-input, .form-textarea, .form-select {
+      background: var(--dim5);
+      border: 0.5px solid var(--border);
+      color: var(--white);
+      padding: 12px 16px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      border-radius: 2px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      border-color: rgba(255,255,255,0.25);
+    }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .form-select option { background: #0d1018; }
+
+    /* FOOTER */
+    footer {
+      border-top: 0.5px solid var(--border);
+      padding: 32px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-logo-top {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 4px;
+    }
+    .footer-logo-top .r { color: var(--red); }
+    .footer-logo-top .b { color: var(--blue); }
+    .footer-logo-bottom {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      color: var(--white);
+    }
+    .footer-right {
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .footer-right span {
+      font-size: 11px;
+      color: var(--dim3);
+      letter-spacing: 1px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .brands { padding: 64px 24px; }
+      .brands-grid { grid-template-columns: 1fr; }
+      .brand-card { padding: 36px 24px; }
+
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(2) { border-right: none; }
+      .stat:nth-child(3) { border-right: 0.5px solid var(--border); }
+
+      .clients { padding: 64px 24px; }
+      .how { padding: 64px 24px; }
+      .how-grid { grid-template-columns: 1fr; gap: 32px; }
+
+      .shop { padding: 64px 24px; }
+      .products-grid { grid-template-columns: 1fr; }
+
+      .cta { padding: 64px 24px; }
+      .contact { padding: 64px 24px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+
+      footer { padding: 24px; flex-direction: column; align-items: flex-start; }
+      .footer-right { text-align: left; }
+
+      h1 { font-size: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-top"><span class="r">NEX</span><span class="b">GEN</span></div>
+    <div class="logo-bottom">INDUSTRY</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#hologram">HOLOGRAM</a></li>
+    <li><a href="#taplink">TAPLINK</a></li>
+    <li><a href="#clients">CLIENTS</a></li>
+    <li><a href="#contact">CONTACT</a></li>
+    <li><a href="#shop" class="shop-btn">SHOP</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="#hologram" onclick="toggleMenu()">HOLOGRAM</a>
+  <a href="#taplink" onclick="toggleMenu()">TAPLINK</a>
+  <a href="#clients" onclick="toggleMenu()">CLIENTS</a>
+  <a href="#contact" onclick="toggleMenu()">CONTACT</a>
+  <a href="#shop" class="shop" onclick="toggleMenu()">SHOP NOW</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="grid-bg"></div>
+  <div class="hero-glow-r"></div>
+  <div class="hero-glow-b"></div>
+  <div class="hero-inner">
+    <div class="badge"><span class="badge-dot"></span>NEXGEN INDUSTRY · PORT ELIZABETH, SA</div>
+    <h1>Built for Businesses<br>That Want to<br><span class="accent-r">Stand</span> <span class="accent-b">Out</span></h1>
+    <p class="hero-sub">Holographic displays that stop people in their tracks. NFC cards that connect in a single tap. Two brands. One vision.</p>
+    <div class="hero-btns">
+      <a href="#shop" class="btn-red">SHOP NOW</a>
+      <a href="#contact" class="btn-ghost">GET A QUOTE</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>SCROLL</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-num">40+</div>
+    <div class="stat-lbl">CLIENTS</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">6</div>
+    <div class="stat-lbl">HOLOGRAM MODELS</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">10</div>
+    <div class="stat-lbl">TAPLINK SOLUTIONS</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">ICASA</div>
+    <div class="stat-lbl">CERTIFIED</div>
+  </div>
+</div>
+
+<!-- BRANDS -->
+<section class="brands" id="hologram">
+  <p class="section-label">OUR BRANDS</p>
+  <div class="brands-grid">
+    <!-- NEXGEN HOLOGRAM -->
+    <div class="brand-card">
+      <div class="brand-accent-line" style="background: var(--red);"></div>
+      <div class="brand-num">BRAND 01</div>
+      <h2>NEXGEN Hologram</h2>
+      <p>Spinning LED fan displays that project 3D visuals mid-air. No screen. No glass. Just your brand floating in space. ICASA & NRCS certified and deployed across malls, showrooms, restaurants and retail stores throughout South Africa.</p>
+      <div class="brand-specs">
+        <div class="spec"><span class="spec-dot" style="background:var(--red);"></span>42cm to 100cm units available</div>
+        <div class="spec"><span class="spec-dot" style="background:var(--red);"></span>WiFi & TF card content update</div>
+        <div class="spec"><span class="spec-dot" style="background:var(--red);"></span>Wall mount, floor stand or industrial rig</div>
+        <div class="spec"><span class="spec-dot" style="background:var(--red);"></span>Supports MP4, AVI, GIF, JPG, PNG</div>
+        <div class="spec"><span class="spec-dot" style="background:var(--red);"></span>1 year warranty on manufacturing defects</div>
+      </div>
+      <a href="#shop" class="brand-link" style="color:var(--red);">
+        VIEW UNITS
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+
+    <!-- TAPLINK -->
+    <div class="brand-card" id="taplink">
+      <div class="brand-accent-line" style="background: var(--blue);"></div>
+      <div class="brand-num">BRAND 02</div>
+      <h2>TapLink</h2>
+      <p>NFC-powered smart cards, table talkers and wristbands. One tap on any NFC-enabled phone instantly shares your full digital profile — contact details, socials, Google Reviews, WhatsApp, payment links and more. No app required.</p>
+      <div class="brand-specs">
+        <div class="spec"><span class="spec-dot" style="background:var(--blue);"></span>Works on all iOS & Android NFC phones</div>
+        <div class="spec"><span class="spec-dot" style="background:var(--blue);"></span>Rewritable and customisable anytime</div>
+        <div class="spec"><span class="spec-dot" style="background:var(--blue);"></span>No batteries required</div>
+        <div class="spec"><span class="spec-dot" style="background:var(--blue);"></span>Keychains, cards, table talkers, wristbands</div>
+        <div class="spec"><span class="spec-dot" style="background:var(--blue);"></span>Branded with your company logo</div>
+      </div>
+      <a href="#shop" class="brand-link" style="color:var(--blue);">
+        VIEW CARDS
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section class="clients" id="clients">
+  <p class="section-label">TRUSTED BY</p>
+  <div class="clients-grid">
+    <span class="client-pill">BMW Continental Cars</span>
+    <span class="client-pill">TruWorths</span>
+    <span class="client-pill">Woolworths</span>
+    <span class="client-pill">KFC</span>
+    <span class="client-pill">Sun International Boardwalk</span>
+    <span class="client-pill">Edgars</span>
+    <span class="client-pill">Markham</span>
+    <span class="client-pill">Fabiani</span>
+    <span class="client-pill">YDE</span>
+    <span class="client-pill">Sports Scene</span>
+    <span class="client-pill">Total Sports</span>
+    <span class="client-pill">Jet</span>
+    <span class="client-pill">Legit</span>
+    <span class="client-pill">Pep</span>
+    <span class="client-pill">RE/MAX</span>
+    <span class="client-pill">Walmer Park Shopping Centre</span>
+    <span class="client-pill">CFAO Mobility Toyota PE</span>
+    <span class="client-pill">Eastern Cape Motors</span>
+    <span class="client-pill">CTM</span>
+    <span class="client-pill">Pearson High School</span>
+    <span class="client-pill">Nelson Mandela Bay Municipality</span>
+    <span class="client-pill">Miladies</span>
+    <span class="client-pill">Archive</span>
+    <span class="client-pill">Relay Jeans</span>
+    <span class="client-pill">Studio Eighty Eight</span>
+    <span class="client-pill">Refinery</span>
+    <span class="client-pill">Drunken Monkey</span>
+    <span class="client-pill">CliniCare</span>
+    <span class="client-pill">SheerGuard SA</span>
+    <span class="client-pill">Intertown Transport</span>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <p class="section-label">HOW IT WORKS</p>
+  <div class="how-grid">
+    <div class="how-block">
+      <div class="how-block-label" style="color:var(--red);">NEXGEN HOLOGRAM</div>
+      <h3>Your Brand Floating in Mid-Air</h3>
+      <p>The hologram unit's LED blades spin at high speed while flashing in sequence to create a floating 3D image — no screen, no glass, nothing between your content and your customer. Upload via WiFi or TF card and update your content anytime. Plug in and it runs. Simple as that.</p>
+    </div>
+    <div class="how-block">
+      <div class="how-block-label" style="color:var(--blue);">TAPLINK</div>
+      <h3>One Tap Shares Everything</h3>
+      <p>Hold any NFC-enabled smartphone near a TapLink card or table talker. A digital profile page instantly pops up with your contact info, social media, WhatsApp, Google Reviews link, website and more. The person hits save and your details are in their phone permanently. No app. No QR code to hunt for. Just tap.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section class="shop" id="shop">
+  <p class="section-label">SHOP PRODUCTS</p>
+  <div class="shop-tabs">
+    <button class="tab-btn active" onclick="switchTab('hologram-products')">NEXGEN HOLOGRAM</button>
+    <button class="tab-btn" onclick="switchTab('taplink-products')">TAPLINK</button>
+  </div>
+
+  <!-- HOLOGRAM PRODUCTS -->
+  <div class="tab-content active" id="hologram-products">
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <div class="product-model" style="color:var(--red);">NH42</div>
+          <p class="product-desc">42cm spinning hologram display. Wall or ceiling mount. Perfect for retail counters and reception areas.</p>
+          <div class="product-specs-list">
+            <div class="product-spec">Resolution: 1024×384</div>
+            <div class="product-spec">Speed: 1200 RPM · Power: 36W</div>
+            <div class="product-spec">WiFi + TF card update</div>
+          </div>
+        </div>
+        <div class="product-price">R5,250</div>
+        <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
+        <a href="#contact" class="buy-btn buy-btn-red">ENQUIRE NOW</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <div class="product-model" style="color:var(--red);">NH42-CT</div>
+          <p class="product-desc">42cm unit with countertop stand included. Ideal for point-of-sale and front desk displays.</p>
+          <div class="product-specs-list">
+            <div class="product-spec">Resolution: 1024×384</div>
+            <div class="product-spec">Speed: 1200 RPM · Power: 36W</div>
+            <div class="product-spec">Includes countertop stand</div>
+          </div>
+        </div>
+        <div class="product-price">R6,550</div>
+        <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
+        <a href="#contact" class="buy-btn buy-btn-red">ENQUIRE NOW</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <div class="product-model" style="color:var(--red);">NH42-BP</div>
+          <p class="product-desc">42cm unit with black protective casing. Built for high-traffic environments and outdoor exposure.</p>
+          <div class="product-specs-list">
+            <div class="product-spec">Resolution: 1024×384</div>
+            <div class="product-spec">Speed: 1200 RPM · Power: 36W</div>
+            <div class="product-spec">Protective black casing included</div>
+          </div>
+        </div>
+        <div class="product-price">R9,150</div>
+        <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
+        <a href="#contact" class="buy-btn buy-btn-red">ENQUIRE NOW</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <div class="product-model" style="color:var(--red);">NH52</div>
+          <p class="product-desc">52cm display with higher resolution. Ideal for mid-size retail floors and mall activations.</p>
+          <div class="product-specs-list">
+            <div class="product-spec">Resolution: 1600×576</div>
+            <div class="product-spec">Speed: 700 RPM · Power: 30W</div>
+            <div class="product-spec">WiFi + TF card update</div>
+          </div>
+        </div>
+        <div class="product-price">R6,800</div>
+        <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
+        <a href="#contact" class="buy-btn buy-btn-red">ENQUIRE NOW</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <div class="product-model" style="color:var(--red);">NH65</div>
+          <p class="product-desc">65cm large-format display. Commands attention in showrooms, dealerships and large retail stores.</p>
+          <div class="product-specs-list">
+            <div class="product-spec">Resolution: 1152×1152</div>
+            <div class="product-spec">Speed: 700 RPM · Power: 80W</div>
+            <div class="product-spec">WiFi + TF card update</div>
+          </div>
+        </div>
+        <div class="product-price">R10,500</div>
+        <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
+        <a href="#contact" class="buy-btn buy-btn-red">ENQUIRE NOW</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <div class="product-model" style="color:var(--red);">NH100</div>
+          <p class="product-desc">100cm flagship unit. Maximum visual impact for premium venues, exhibitions and large-scale installations.</p>
+          <div class="product-specs-list">
+            <div class="product-spec">Resolution: 1024×1024</div>
+            <div class="product-spec">Speed: 700 RPM · Power: 96W</div>
+            <div class="product-spec">WiFi + TF card update</div>
+          </div>
+        </div>
+        <div class="product-price">R19,200</div>
+        <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
+        <a href="#contact" class="buy-btn buy-btn-red">ENQUIRE NOW</a>
+      </div>
+
+    </div>
+    <p style="font-size:12px;color:var(--dim3);margin-top:20px;letter-spacing:1px;">* Prices exclude VAT. Content creation and transport not included. Prices subject to change.</p>
+  </div>
+
+  <!-- TAPLINK PRODUCTS -->
+  <div class="tab-content" id="taplink-products">
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <div class="product-model" style="color:var(--blue);">Standard Keychain</div>
+          <p class="product-desc">Branded NFC keychain card. 5cm × 3cm. Plastic PLA with metal keyring. Perfect starter card for any professional.</p>
+          <div class="product-specs-list">
+            <div class="product-spec">Size: 5cm × 3cm</div>
+            <div class="product-spec">iOS & Android compatible</div>
+            <div class="product-spec">Rewritable · No batteries</div>
+          </div>
+        </div>
+        <div class="product-price">R270</div>
+        <div class="product-vat">EX VAT · 5+ UNITS / R295 UNDER 5</div>
+        <a href="#contact" class="buy-btn buy-btn-blue">ENQUIRE NOW</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <div class="product-model" style="color:var(--blue);">Medium Keychain</div>
+          <p class="product-desc">Branded NFC keychain card. 3cm × 3cm square format. Bold and compact, ideal for car dealerships and hospitality.</p>
+          <div class="product-specs-list">
+            <div class="product-spec">Size: 3cm × 3cm</div>
+            <div class="product-spec">iOS & Android compatible</div>
+            <div class="product-spec">Rewritable · No batteries</div>
+          </div>
+        </div>
+        <div class="product-price">R300</div>
+        <div class="product-vat">EX VAT · 5+ UNITS / R315 UNDER 5</div>
+        <a href="#contact" class="buy-btn buy-btn-blue">ENQUIRE NOW</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <div class="product-model" style="color:var(--blue);">Large Keychain</div>
+          <p class="product-desc">Branded NFC keychain card. 3cm × 6cm. Larger surface area for standout branding and logo placement.</p>
+          <div class="product-specs-list">
+            <div class="product-spec">Size: 3cm × 6cm</div>
+            <div class="product-spec">iOS & Android compatible</div>
+            <div class="product-spec">Rewritable · No batteries</div>
+          </div>
+        </div>
+        <div class="product-price">R310</div>
+        <div class="product-vat">EX VAT · 5+ UNITS / R325 UNDER 5</div>
+        <a href="#contact" class="buy-btn buy-btn-blue">ENQUIRE NOW</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <div class="product-model" style="color:var(--blue);">NFC Card</div>
+          <p class="product-desc">Full business card size NFC card. 8.5cm × 5.4cm. Replaces your paper business card permanently.</p>
+          <div class="product-specs-list">
+            <div class="product-spec">Size: 8.5cm × 5.4cm</div>
+            <div class="product-spec">iOS & Android compatible</div>
+            <div class="product-spec">Rewritable · No batteries</div>
+          </div>
+        </div>
+        <div class="product-price">R300</div>
+        <div class="product-vat">EX VAT · 5+ UNITS / R320 UNDER 5</div>
+        <a href="#contact" class="buy-btn buy-btn-blue">ENQUIRE NOW</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <div class="product-model" style="color:var(--blue);">Table Talker</div>
+          <p class="product-desc">PVC table stand with embedded NFC chip. 14cm × 12cm × 5cm. Perfect for restaurants, salons and reception desks.</p>
+          <div class="product-specs-list">
+            <div class="product-spec">Size: 14cm × 12cm × 5cm</div>
+            <div class="product-spec">PVC material</div>
+            <div class="product-spec">Rewritable · No batteries</div>
+          </div>
+        </div>
+        <div class="product-price">R380</div>
+        <div class="product-vat">EX VAT · PER UNIT</div>
+        <a href="#contact" class="buy-btn buy-btn-blue">ENQUIRE NOW</a>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <div class="product-model" style="color:var(--blue);">NFC Wristband</div>
+          <p class="product-desc">Unbranded NFC wristband. 1.5cm height. Ideal for events, conferences and brand activations.</p>
+          <div class="product-specs-list">
+            <div class="product-spec">Height: 1.5cm</div>
+            <div class="product-spec">Polyester fibre weave elastic</div>
+            <div class="product-spec">Rewritable · No batteries</div>
+          </div>
+        </div>
+        <div class="product-price">R120</div>
+        <div class="product-vat">EX VAT · PER UNIT</div>
+        <a href="#contact" class="buy-btn buy-btn-blue">ENQUIRE NOW</a>
+      </div>
+
+    </div>
+    <p style="font-size:12px;color:var(--dim3);margin-top:20px;letter-spacing:1px;">* Prices exclude VAT. All products branded with your logo. Minimum order quantities may apply.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-glow"></div>
+  <div class="cta-inner">
+    <h2>Ready to Stand Out?</h2>
+    <p>Get in touch for a quote, a demo, or just to ask a question. We're based in Port Elizabeth and deliver nationwide.</p>
+    <div class="cta-btns">
+      <a href="#contact" class="btn-red">GET A QUOTE</a>
+      <a href="https://wa.me/27722419111" class="btn-ghost" target="_blank">WHATSAPP US</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <p class="section-label">GET IN TOUCH</p>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3>Contact Us</h3>
+      <div class="contact-item">
+        <div class="contact-item-label">ADDRESS</div>
+        <div class="contact-item-val">102 Restitution Avenue, Moffet Business Park<br>Phase 4, Unit 4, Fairview<br>Port Elizabeth, 6070</div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-label">RIDWAAN MOODLEY</div>
+        <div class="contact-item-val"><a href="mailto:ridwaan@nexgenindustry.co.za">ridwaan@nexgenindustry.co.za</a><br><a href="tel:+27722419111">+27 72 241 9111</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-label">SHAUN MOODLEY</div>
+        <div class="contact-item-val"><a href="mailto:shaun@nexgenindustry.co.za">shaun@nexgenindustry.co.za</a><br><a href="tel:+27786700706">+27 78 670 0706</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-label">GENERAL</div>
+        <div class="contact-item-val"><a href="mailto:admin@nexgenindustry.co.za">admin@nexgenindustry.co.za</a><br><a href="tel:0413681899">041 368 1899</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-label">VAT NUMBER</div>
+        <div class="contact-item-val">4470295439</div>
+      </div>
+    </div>
+    <div>
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label class="form-label">YOUR NAME</label>
+          <input class="form-input" type="text" placeholder="John Smith" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">EMAIL ADDRESS</label>
+          <input class="form-input" type="email" placeholder="john@company.co.za" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">PHONE NUMBER</label>
+          <input class="form-input" type="tel" placeholder="+27 ..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label">I'M INTERESTED IN</label>
+          <select class="form-select">
+            <option value="">Select a product</option>
+            <option>NEXGEN Hologram</option>
+            <option>TapLink</option>
+            <option>Both</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">MESSAGE</label>
+          <textarea class="form-textarea" placeholder="Tell us what you need..."></textarea>
+        </div>
+        <button type="submit" class="btn-red" style="border:none;width:100%;text-align:center;">SEND ENQUIRY</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo-top"><span class="r">NEX</span><span class="b">GEN</span></div>
+    <div class="footer-logo-bottom">INDUSTRY</div>
+  </div>
+  <div class="footer-right">
+    <span>NEXGEN INDUSTRY (PTY) LTD</span>
+    <span>REG: 2021/459404/07</span>
+    <span>© 2025 ALL RIGHTS RESERVED</span>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    const nav = document.getElementById('mobileNav');
+    nav.classList.toggle('open');
+  }
+
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    btn.textContent = 'SENT!';
+    btn.style.background = '#1d6a3a';
+    setTimeout(() => {
+      btn.textContent = 'SEND ENQUIRY';
+      btn.style.background = '';
+      e.target.reset();
+    }, 3000);
+  }
+</script>
+
+</body>
+</html>
