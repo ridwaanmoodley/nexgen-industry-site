@@ -753,6 +753,18 @@
       font-size: 12px; margin-top: 12px; display: none;
     }
     .checkout-error.show { display: block; }
+    .delivery-option {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 14px; border: 0.5px solid var(--border);
+      border-radius: 3px; cursor: pointer; margin-bottom: 8px;
+      background: var(--dim5); transition: border-color 0.2s;
+    }
+    .delivery-option:hover { border-color: rgba(255,255,255,0.2); }
+    .delivery-option.selected { border-color: var(--blue); background: rgba(37,99,176,0.08); }
+    .delivery-option input[type=radio] { margin-top: 2px; accent-color: var(--blue); }
+    .delivery-option-name { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+    .delivery-option-desc { font-size: 11px; color: var(--dim3); }
+    .delivery-option-price { margin-left: auto; font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; white-space: nowrap; }
     .checkout-success { text-align: center; padding: 32px 0; display: none; }
     .checkout-success.show { display: block; }
     .success-check {
@@ -1045,6 +1057,11 @@
             <input class="form-input" id="coPostal" type="text" placeholder="8001" required />
           </div>
         </div>
+      </div>
+
+      <p class="checkout-section-label">DELIVERY OPTIONS</p>
+      <div id="deliveryOptions" style="margin-bottom:8px;">
+        <p style="font-size:12px;color:var(--dim3);letter-spacing:0.5px;">Fill in your postal code above to load delivery rates.</p>
       </div>
 
       <p class="checkout-section-label">ORDER SUMMARY</p>
@@ -1706,13 +1723,27 @@
   }
 
   // ── CHECKOUT MODAL ──────────────────────────────────────────
+  let selectedDelivery = null;
+  let quoteDebounce = null;
+
   function openCheckout() {
     closeCart();
+    selectedDelivery = null;
     document.getElementById('checkoutSuccess').classList.remove('show');
     document.getElementById('checkoutForm').style.display = 'block';
+    document.getElementById('deliveryOptions').innerHTML = '<p style="font-size:12px;color:var(--dim3);letter-spacing:0.5px;">Fill in your postal code above to load delivery rates.</p>';
     buildCheckoutSummary();
     document.getElementById('checkoutOverlay').classList.add('open');
     document.body.style.overflow = 'hidden';
+
+    // Auto-fetch quotes when postal code changes
+    setTimeout(() => {
+      const postalInput = document.getElementById('coPostal');
+      postalInput.addEventListener('input', () => {
+        clearTimeout(quoteDebounce);
+        quoteDebounce = setTimeout(fetchDeliveryQuotes, 800);
+      });
+    }, 100);
   }
 
   function closeCheckout() {
@@ -1720,10 +1751,66 @@
     document.body.style.overflow = '';
   }
 
+  async function fetchDeliveryQuotes() {
+    const postal = document.getElementById('coPostal').value.trim();
+    const suburb = document.getElementById('coSuburb').value.trim();
+    const city = document.getElementById('coCity').value.trim();
+    const province = document.getElementById('coProvince').value;
+    if (postal.length < 4 || !city) return;
+
+    const el = document.getElementById('deliveryOptions');
+    el.innerHTML = '<p style="font-size:12px;color:var(--dim3);letter-spacing:0.5px;">Fetching rates...</p>';
+
+    try {
+      const resp = await fetch('/api/quote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          deliveryAddress: { street: document.getElementById('coStreet').value || 'TBC', suburb, city, province, postal },
+          items: cart
+        })
+      });
+      const data = await resp.json();
+
+      if (!data.success || !data.options?.length) {
+        el.innerHTML = '<p style="font-size:12px;color:var(--dim3);">Could not load rates — a flat rate of R150 will apply.</p>';
+        selectedDelivery = { code: 'ECO', name: 'Economy', rateCents: 15000 };
+        buildCheckoutSummary();
+        return;
+      }
+
+      selectedDelivery = data.options[0];
+      el.innerHTML = data.options.map((opt, i) => `
+        <label class="delivery-option${i === 0 ? ' selected' : ''}" onclick="selectDelivery(this, ${i})" id="dopt-${i}">
+          <input type="radio" name="delivery" value="${i}" ${i === 0 ? 'checked' : ''}>
+          <div style="flex:1;">
+            <div class="delivery-option-name">${opt.name}</div>
+            <div class="delivery-option-desc">${opt.description}</div>
+          </div>
+          <div class="delivery-option-price">${formatRand(opt.rateCents)}</div>
+        </label>`).join('');
+
+      window._deliveryOptions = data.options;
+      buildCheckoutSummary();
+    } catch (e) {
+      el.innerHTML = '<p style="font-size:12px;color:var(--dim3);">Could not load rates — a flat rate of R150 will apply.</p>';
+      selectedDelivery = { code: 'ECO', name: 'Economy', rateCents: 15000 };
+      buildCheckoutSummary();
+    }
+  }
+
+  function selectDelivery(el, idx) {
+    document.querySelectorAll('.delivery-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedDelivery = window._deliveryOptions[idx];
+    buildCheckoutSummary();
+  }
+
   function buildCheckoutSummary() {
     const sub = cartSubtotalCents();
     const vat = Math.round(sub * 0.15);
-    const total = sub + vat + DELIVERY_FEE;
+    const delivery = selectedDelivery ? selectedDelivery.rateCents : DELIVERY_FEE;
+    const total = sub + vat + delivery;
 
     let html = cart.map(item => {
       const unitPrice = getItemPrice(item);
@@ -1733,10 +1820,11 @@
       </div>`;
     }).join('');
 
+    const deliveryLabel = selectedDelivery ? selectedDelivery.name + ' (The Courier Guy)' : 'Delivery (The Courier Guy)';
     html += `<hr class="checkout-divider">
       <div class="checkout-summary-row"><span>Subtotal (ex VAT)</span><span>${formatRand(sub)}</span></div>
       <div class="checkout-summary-row"><span>VAT (15%)</span><span>${formatRand(vat)}</span></div>
-      <div class="checkout-summary-row"><span>Delivery (The Courier Guy)</span><span>${formatRand(DELIVERY_FEE)}</span></div>
+      <div class="checkout-summary-row"><span>${deliveryLabel}</span><span>${formatRand(delivery)}</span></div>
       <div class="checkout-summary-row total"><span>Total</span><span>${formatRand(total)}</span></div>`;
 
     document.getElementById('checkoutSummary').innerHTML = html;
@@ -1763,7 +1851,8 @@
     hideError();
     const sub = cartSubtotalCents();
     const vat = Math.round(sub * 0.15);
-    const totalCents = sub + vat + DELIVERY_FEE;
+    const delivery = selectedDelivery ? selectedDelivery.rateCents : DELIVERY_FEE;
+    const totalCents = sub + vat + delivery;
 
     yoco.showPopup({
       amountInCents: totalCents,
@@ -1789,12 +1878,13 @@
               amountInCents: totalCents,
               customer: {
                 name: first + ' ' + last,
-                email,
-                phone,
+                email, phone,
+                street, suburb, city, province, postal,
                 address: `${street}, ${suburb}, ${city}, ${province}, ${postal}`
               },
               items: cart,
-              orderId: 'NG-' + Date.now()
+              orderId: 'NG-' + Date.now(),
+              deliveryOption: selectedDelivery
             })
           });
 
