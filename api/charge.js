@@ -1,3 +1,5 @@
+import { brevoSend, orderNotifyHtml, orderConfirmHtml } from './_email.js';
+
 const PARCEL_WEIGHTS = {
   'NH42': 3, 'NH42-CT': 4, 'NH42-BP': 4.5,
   'NH52': 4, 'NH65': 7, 'NH100': 12,
@@ -11,7 +13,7 @@ const PARCEL_WEIGHTS = {
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { token, amountInCents, customer, items, orderId, deliveryOption } = req.body;
+  const { token, amountInCents, subtotalCents, vatCents, deliveryCents, customer, items, orderId, deliveryOption } = req.body;
   if (!token || !amountInCents) return res.status(400).json({ error: 'Missing token or amount' });
 
   // 1. Charge card via Yoco
@@ -74,12 +76,38 @@ export default async function handler(req, res) {
     });
 
     const shipData = await shipResp.json();
-    const waybill = shipData.short_tracking_reference || shipData.tracking_reference || ref;
+    const waybill = shipData.short_tracking_reference || shipData.tracking_reference || null;
+
+    const emailData = {
+      orderId: ref, customer, items,
+      subtotalCents: subtotalCents || amountInCents,
+      vatCents: vatCents || 0,
+      deliveryCents: deliveryCents || 0,
+      totalCents: amountInCents,
+      waybill, deliveryOption
+    };
+    // Fire-and-forget — don't block on email success
+    brevoSend({ to: 'ridwaan@nexgenindustry.co.za', toName: 'Ridwaan Moodley', subject: `New Order ${ref} — R${(amountInCents / 100).toFixed(2)}`, html: orderNotifyHtml(emailData) }).catch(console.error);
+    if (customer?.email) {
+      brevoSend({ to: customer.email, toName: customer.name, subject: `Your NEXGEN Industry order is confirmed — ${ref}`, html: orderConfirmHtml(emailData) }).catch(console.error);
+    }
 
     return res.json({ success: true, chargeId: charge.id, orderId: ref, waybill });
   } catch (err) {
     console.error('Shiplogic error:', err);
-    // Payment succeeded but waybill failed — still return success, log for manual follow-up
+    // Payment succeeded but waybill failed — send notification without waybill number
+    const emailData = {
+      orderId: ref, customer, items,
+      subtotalCents: subtotalCents || amountInCents,
+      vatCents: vatCents || 0,
+      deliveryCents: deliveryCents || 0,
+      totalCents: amountInCents,
+      waybill: null, deliveryOption
+    };
+    brevoSend({ to: 'ridwaan@nexgenindustry.co.za', toName: 'Ridwaan Moodley', subject: `New Order ${ref} — R${(amountInCents / 100).toFixed(2)} (waybill failed)`, html: orderNotifyHtml(emailData) }).catch(console.error);
+    if (customer?.email) {
+      brevoSend({ to: customer.email, toName: customer.name, subject: `Your NEXGEN Industry order is confirmed — ${ref}`, html: orderConfirmHtml(emailData) }).catch(console.error);
+    }
     return res.json({ success: true, chargeId: charge.id, orderId: ref, waybillError: true });
   }
 }
