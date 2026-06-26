@@ -917,7 +917,7 @@
         </div>
         <div class="product-price">R5,250</div>
         <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
-        <a href="#contact" class="buy-btn buy-btn-red">ENQUIRE NOW</a>
+        <button onclick="payNow('NH42 Hologram Display', 525000)" class="buy-btn buy-btn-red">BUY NOW</button>
       </div>
 
       <div class="product-card">
@@ -932,7 +932,7 @@
         </div>
         <div class="product-price">R6,550</div>
         <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
-        <a href="#contact" class="buy-btn buy-btn-red">ENQUIRE NOW</a>
+        <button onclick="payNow('NH42-CT Hologram Display with Stand', 655000)" class="buy-btn buy-btn-red">BUY NOW</button>
       </div>
 
       <div class="product-card">
@@ -947,7 +947,7 @@
         </div>
         <div class="product-price">R9,150</div>
         <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
-        <a href="#contact" class="buy-btn buy-btn-red">ENQUIRE NOW</a>
+        <button onclick="payNow('NH42-BP Hologram Display with Casing', 915000)" class="buy-btn buy-btn-red">BUY NOW</button>
       </div>
 
       <div class="product-card">
@@ -962,7 +962,7 @@
         </div>
         <div class="product-price">R6,800</div>
         <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
-        <a href="#contact" class="buy-btn buy-btn-red">ENQUIRE NOW</a>
+        <button onclick="payNow('NH52 Hologram Display', 680000)" class="buy-btn buy-btn-red">BUY NOW</button>
       </div>
 
       <div class="product-card">
@@ -977,7 +977,7 @@
         </div>
         <div class="product-price">R10,500</div>
         <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
-        <a href="#contact" class="buy-btn buy-btn-red">ENQUIRE NOW</a>
+        <button onclick="payNow('NH65 Hologram Display', 1050000)" class="buy-btn buy-btn-red">BUY NOW</button>
       </div>
 
       <div class="product-card">
@@ -992,7 +992,7 @@
         </div>
         <div class="product-price">R19,200</div>
         <div class="product-vat">EX VAT · ICASA CERTIFIED</div>
-        <a href="#contact" class="buy-btn buy-btn-red">ENQUIRE NOW</a>
+        <button onclick="payNow('NH100 Hologram Display', 1920000)" class="buy-btn buy-btn-red">BUY NOW</button>
       </div>
 
     </div>
@@ -1015,7 +1015,7 @@
         </div>
         <div class="product-price">R270</div>
         <div class="product-vat">EX VAT · 5+ UNITS / R295 UNDER 5</div>
-        <a href="#contact" class="buy-btn buy-btn-blue">ENQUIRE NOW</a>
+        <button onclick="payNow('TapLink Standard Keychain (5+ units)', 27000)" class="buy-btn buy-btn-blue">BUY NOW</button>
       </div>
 
       <div class="product-card">
@@ -1030,7 +1030,7 @@
         </div>
         <div class="product-price">R300</div>
         <div class="product-vat">EX VAT · 5+ UNITS / R315 UNDER 5</div>
-        <a href="#contact" class="buy-btn buy-btn-blue">ENQUIRE NOW</a>
+        <button onclick="payNow('TapLink Medium Keychain (5+ units)', 30000)" class="buy-btn buy-btn-blue">BUY NOW</button>
       </div>
 
       <div class="product-card">
@@ -1045,7 +1045,7 @@
         </div>
         <div class="product-price">R310</div>
         <div class="product-vat">EX VAT · 5+ UNITS / R325 UNDER 5</div>
-        <a href="#contact" class="buy-btn buy-btn-blue">ENQUIRE NOW</a>
+        <button onclick="payNow('TapLink Large Keychain (5+ units)', 31000)" class="buy-btn buy-btn-blue">BUY NOW</button>
       </div>
 
       <div class="product-card">
@@ -1060,7 +1060,7 @@
         </div>
         <div class="product-price">R300</div>
         <div class="product-vat">EX VAT · 5+ UNITS / R320 UNDER 5</div>
-        <a href="#contact" class="buy-btn buy-btn-blue">ENQUIRE NOW</a>
+        <button onclick="payNow('TapLink NFC Card (5+ units)', 30000)" class="buy-btn buy-btn-blue">BUY NOW</button>
       </div>
 
       <div class="product-card">
@@ -1075,7 +1075,7 @@
         </div>
         <div class="product-price">R380</div>
         <div class="product-vat">EX VAT · PER UNIT</div>
-        <a href="#contact" class="buy-btn buy-btn-blue">ENQUIRE NOW</a>
+        <button onclick="payNow('TapLink Table Talker', 38000)" class="buy-btn buy-btn-blue">BUY NOW</button>
       </div>
 
       <div class="product-card">
@@ -1090,7 +1090,7 @@
         </div>
         <div class="product-price">R120</div>
         <div class="product-vat">EX VAT · PER UNIT</div>
-        <a href="#contact" class="buy-btn buy-btn-blue">ENQUIRE NOW</a>
+        <button onclick="payNow('TapLink NFC Wristband', 12000)" class="buy-btn buy-btn-blue">BUY NOW</button>
       </div>
 
     </div>
@@ -1185,6 +1185,24 @@
 </footer>
 
 <script>
+  const yoco = new window.YocoSDK({ publicKey: 'pk_live_977da55dmWLdLrLaaf44' });
+
+  function payNow(productName, amountInCents) {
+    yoco.showPopup({
+      amountInCents: amountInCents,
+      currency: 'ZAR',
+      name: 'NEXGEN Industry',
+      description: productName,
+      callback: function(result) {
+        if (result.error) {
+          alert('Payment failed: ' + result.error.message);
+        } else {
+          alert('Payment successful! We will be in touch shortly to confirm your order.');
+        }
+      }
+    });
+  }
+
   function toggleMenu() {
     const nav = document.getElementById('mobileNav');
     nav.classList.toggle('open');
@@ -1210,5 +1228,6 @@
   }
 </script>
 
+<script src="https://js.yoco.com/sdk/v1/yoco-sdk-web.js"></script>
 </body>
 </html>
