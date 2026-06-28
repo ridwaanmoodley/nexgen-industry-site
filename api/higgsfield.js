@@ -10,6 +10,7 @@ export default async function handler(req, res) {
   const BASE = 'https://platform.higgsfield.ai';
   const { _action, _request_id, _application, ...args } = req.body || {};
 
+  // Valid DOP slugs: lite, standard, turbo (and first-last-frame variants)
   let url, method = 'POST', sendBody = true;
 
   if (_action === 'status' && _request_id) {
@@ -20,8 +21,9 @@ export default async function handler(req, res) {
     url = `${BASE}/requests/${_request_id}/cancel`;
     sendBody = false;
   } else {
+    // e.g. _application = "higgsfield-ai/dop/standard"
     const app = _application || 'higgsfield-ai/dop/standard';
-    url = `${BASE}/applications/${app}`;
+    url = `${BASE}/${app}`;
   }
 
   try {
